@@ -1,0 +1,81 @@
+# PansaWatch CODEOWNERS
+#
+# Maps repository paths to their owning AI agent session.
+# Currently advisory only (no human reviewers); reviewer assignment is
+# handled by the PM Orchestrator session reading PR labels (auto-applied
+# by .github/workflows/labeler.yml using .github/labeler.yml).
+#
+# When real human collaborators join, replace `# agent:foo` placeholders
+# with `@username` to enable GitHub's automatic review request.
+#
+# Reference: docs/session-prompts/README.md (file matrix)
+
+# === UI / Frontend (agent:ui) ============================================
+# /components/                                # agent:ui
+# /app/**/page.tsx                            # agent:ui
+# /app/layout.tsx                             # agent:ui
+# /app/not-found.tsx                          # agent:ui
+# /app/globals.css                            # agent:ui
+# /app/**/loading.tsx                         # agent:ui
+# /app/**/error.tsx                           # agent:ui
+
+# === Backend / API (agent:backend) =======================================
+# /app/api/                                   # agent:backend
+# /lib/supabase/                              # agent:backend
+# /lib/auth.ts                                # agent:backend
+# /lib/schemas/                               # agent:backend
+# /middleware.ts                              # agent:backend
+
+# === Database (agent:db) ==================================================
+# /db/                                        # agent:db
+# /docs/db-decisions.md                       # agent:db
+# /docs/erd.md                                # agent:db
+
+# === Data Pipeline (agent:pipeline) =======================================
+# /scripts/crawlers/                          # agent:pipeline
+# /lib/pipeline/                              # agent:pipeline
+# /docs/data-sources.md                       # agent:pipeline
+# /docs/pipeline-architecture.md              # agent:pipeline
+# /docs/crawler-spec/                         # agent:pipeline
+# /docs/matching-logic.md                     # agent:pipeline
+
+# === AI/ML + DevOps (agent:ai-devops) =====================================
+# /lib/ai/                                    # agent:ai-devops
+# /.github/workflows/                         # agent:ai-devops
+# /docs/ai-pipeline.md                        # agent:ai-devops
+# /docs/deploy.md                             # agent:ai-devops
+# /docs/env-vars.md                           # agent:ai-devops
+# /.env.example                               # agent:ai-devops
+# /vercel.json                                # agent:ai-devops
+# /next.config.ts                             # agent:ai-devops
+
+# === Content (agent:content) ==============================================
+# /docs/policy.md                             # agent:content
+# /docs/disclaimer.md                         # agent:content
+# /docs/data-collection-principles.md         # agent:content
+# /app/about/page.tsx                         # agent:content
+# /app/help/                                  # agent:content
+# /app/faq/                                   # agent:content
+
+# === Legal (agent:legal) ==================================================
+# /docs/legal-*.md                            # agent:legal
+# /docs/privacy-policy.md                     # agent:legal
+# /docs/terms-of-service.md                   # agent:legal
+# /docs/correction-request-process.md         # agent:legal
+# /docs/dispute-response.md                   # agent:legal
+# /app/privacy/                               # agent:legal
+# /app/terms/                                 # agent:legal
+
+# === SEO (agent:seo) ======================================================
+# /app/sitemap.ts                             # agent:seo
+# /app/robots.ts                              # agent:seo
+# /app/opengraph-image.tsx                    # agent:seo
+# /app/**/opengraph-image.tsx                 # agent:seo
+
+# === Session prompts (PM-only) ============================================
+# /docs/session-prompts/                      # agent:pm
+
+# === Project root meta ====================================================
+# /pansawatch-project-brief*.md               # agent:pm
+# /AGENTS.md                                  # agent:pm
+# /CLAUDE.md                                  # agent:pm

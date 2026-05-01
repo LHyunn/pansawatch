@@ -1,0 +1,96 @@
+# Auto-label PRs based on changed file paths.
+# Used by .github/workflows/labeler.yml (actions/labeler@v5).
+#
+# Each top-level key is a label name; the values list path globs.
+# A PR may receive multiple labels (e.g. UI + Content for app/about/page.tsx).
+
+"agent:ui":
+  - changed-files:
+      - any-glob-to-any-file:
+          - components/**
+          - app/**/page.tsx
+          - app/layout.tsx
+          - app/not-found.tsx
+          - app/globals.css
+          - app/**/loading.tsx
+          - app/**/error.tsx
+
+"agent:backend":
+  - changed-files:
+      - any-glob-to-any-file:
+          - app/api/**
+          - lib/supabase/**
+          - lib/auth.ts
+          - lib/schemas/**
+          - middleware.ts
+
+"agent:db":
+  - changed-files:
+      - any-glob-to-any-file:
+          - db/**
+          - docs/db-decisions.md
+          - docs/erd.md
+
+"agent:pipeline":
+  - changed-files:
+      - any-glob-to-any-file:
+          - scripts/crawlers/**
+          - lib/pipeline/**
+          - docs/data-sources.md
+          - docs/pipeline-architecture.md
+          - docs/crawler-spec/**
+          - docs/matching-logic.md
+
+"agent:ai-devops":
+  - changed-files:
+      - any-glob-to-any-file:
+          - lib/ai/**
+          - .github/workflows/**
+          - docs/ai-pipeline.md
+          - docs/deploy.md
+          - docs/env-vars.md
+          - .env.example
+          - vercel.json
+          - next.config.ts
+
+"agent:content":
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/policy.md
+          - docs/disclaimer.md
+          - docs/data-collection-principles.md
+          - app/about/page.tsx
+          - app/help/**
+          - app/faq/**
+
+"agent:legal":
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/legal-*.md
+          - docs/privacy-policy.md
+          - docs/terms-of-service.md
+          - docs/correction-request-process.md
+          - docs/dispute-response.md
+          - app/privacy/**
+          - app/terms/**
+
+"agent:seo":
+  - changed-files:
+      - any-glob-to-any-file:
+          - app/sitemap.ts
+          - app/robots.ts
+          - app/opengraph-image.tsx
+          - app/**/opengraph-image.tsx
+
+"agent:pm":
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/session-prompts/**
+          - .github/CODEOWNERS
+          - .github/labeler.yml
+
+"phase:1":
+  - changed-files:
+      - any-glob-to-any-file:
+          - data/**.json
+          - scripts/generate-mock-data.mjs

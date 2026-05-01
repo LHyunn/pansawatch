@@ -1,0 +1,39 @@
+# VCS / OS
+.git
+.gitignore
+.DS_Store
+Thumbs.db
+
+# Build outputs (rebuilt inside container)
+.next
+node_modules
+out
+
+# Local env / secrets
+.env*
+!.env.example
+
+# Editor / tool config
+.vscode
+.idea
+.claude
+*.log
+npm-debug.log*
+
+# Project docs (not needed at runtime)
+README.md
+*.md
+docs/
+db/
+
+# Mock data generation script (data/*.json IS needed at runtime — keep)
+scripts/
+
+# Tests / fixtures (none yet but reserve)
+**/*.test.ts
+**/*.test.tsx
+coverage
+
+# Cloud / Docker artifacts
+.dockerignore
+Dockerfile

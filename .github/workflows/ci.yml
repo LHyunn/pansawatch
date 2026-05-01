@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck-and-build:
+    name: Typecheck + Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Build (Next.js)
+        run: npm run build
+        env:
+          # Build-time env (production secrets not needed for build)
+          NEXT_PUBLIC_SUPABASE_URL: "https://placeholder.supabase.co"
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: "placeholder-anon-key"
+
+  domain-boundary:
+    name: Domain boundary check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    timeout-minutes: 2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify single-domain PR
+        run: |
+          # Get changed files vs base branch
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          CHANGED=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          echo "Changed files:"
+          echo "$CHANGED"
+          echo "::group::Domain check"
+          # This is a soft warning — PM session enforces strict boundaries.
+          # We just print which domains are touched for visibility.
+          echo "$CHANGED" | awk '
+            /^components\// { print "  agent:ui" }
+            /^app\/.*page\.tsx$/ { print "  agent:ui" }
+            /^app\/layout\.tsx$/ { print "  agent:ui" }
+            /^app\/globals\.css$/ { print "  agent:ui" }
+            /^app\/api\// { print "  agent:backend" }
+            /^lib\/supabase\// { print "  agent:backend" }
+            /^db\// { print "  agent:db" }
+            /^scripts\/crawlers\// { print "  agent:pipeline" }
+            /^lib\/pipeline\// { print "  agent:pipeline" }
+            /^lib\/ai\// { print "  agent:ai-devops" }
+            /^\.github\/workflows\// { print "  agent:ai-devops" }
+            /^app\/sitemap\.ts$/ { print "  agent:seo" }
+            /^app\/robots\.ts$/ { print "  agent:seo" }
+            /^docs\/privacy-policy\.md$/ { print "  agent:legal" }
+            /^docs\/terms-of-service\.md$/ { print "  agent:legal" }
+          ' | sort -u
+          echo "::endgroup::"

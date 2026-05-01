@@ -1,0 +1,156 @@
+# PansaWatch standard labels.
+#
+# Apply with the helper script:
+#   bash .github/scripts/setup-labels.sh
+#
+# Or manually with `gh label create` (see commands at the bottom).
+# Color values are 6-digit hex without the leading '#'.
+
+# === Agent (도메인 세션) ====================================================
+- name: "agent:pm"
+  description: "PM Orchestrator session — meta/infra"
+  color: "1f2937"
+
+- name: "agent:ui"
+  description: "UX/UI/Frontend session"
+  color: "0369a1"   # civic-blue
+
+- name: "agent:backend"
+  description: "Backend / API session"
+  color: "075985"
+
+- name: "agent:db"
+  description: "Database session"
+  color: "065f46"   # emerald
+
+- name: "agent:pipeline"
+  description: "Data Pipeline session"
+  color: "9a3412"   # amber-deep
+
+- name: "agent:ai-devops"
+  description: "AI/ML + DevOps session"
+  color: "6d28d9"   # violet
+
+- name: "agent:content"
+  description: "Content session"
+  color: "0b1733"   # navy-900
+
+- name: "agent:legal"
+  description: "Legal review session"
+  color: "b91c1c"   # seal-600
+
+- name: "agent:seo"
+  description: "SEO session"
+  color: "78350f"
+
+# === Phase ==================================================================
+- name: "phase:1"
+  description: "Phase 1 — Frontend prototype + mock data"
+  color: "e5e7eb"
+
+- name: "phase:2"
+  description: "Phase 2 — DB connection (Supabase migration)"
+  color: "d1d5db"
+
+- name: "phase:3"
+  description: "Phase 3 — Data collection pipelines"
+  color: "9ca3af"
+
+- name: "phase:5"
+  description: "Phase 5 — Search/scale optimization"
+  color: "6b7280"
+
+# === Priority ===============================================================
+- name: "priority:high"
+  description: "High priority"
+  color: "b91c1c"
+
+- name: "priority:medium"
+  description: "Medium priority"
+  color: "f59e0b"
+
+- name: "priority:low"
+  description: "Low priority"
+  color: "9ca3af"
+
+# === Status =================================================================
+- name: "status:in-progress"
+  description: "Actively being worked on"
+  color: "0369a1"
+
+- name: "status:review"
+  description: "Awaiting PM review"
+  color: "f59e0b"
+
+- name: "status:blocked"
+  description: "Blocked by another issue/PR"
+  color: "b91c1c"
+
+- name: "status:approved"
+  description: "Approved by PM, awaiting merge"
+  color: "16a34a"
+
+# === Type ===================================================================
+- name: "type:feature"
+  description: "New feature"
+  color: "16a34a"
+
+- name: "type:bug"
+  description: "Bug fix"
+  color: "b91c1c"
+
+- name: "type:refactor"
+  description: "Refactor (no behavior change)"
+  color: "78716c"
+
+- name: "type:docs"
+  description: "Documentation only"
+  color: "0369a1"
+
+- name: "type:chore"
+  description: "Tooling, deps, infra"
+  color: "6b7280"
+
+# === Special ================================================================
+- name: "needs:legal-review"
+  description: "Requires Legal session escalation before merge"
+  color: "b91c1c"
+
+- name: "needs:content-review"
+  description: "Requires Content session review (시빅 톤)"
+  color: "0b1733"
+
+- name: "civic-violation"
+  description: "Detected potential civic-principle violation"
+  color: "991b1b"
+
+# === Manual application (if you don't run the helper script) ================
+#
+# gh label create "agent:pm"           --description "PM Orchestrator session" --color "1f2937"
+# gh label create "agent:ui"           --description "UX/UI/Frontend session"  --color "0369a1"
+# gh label create "agent:backend"      --description "Backend / API session"   --color "075985"
+# gh label create "agent:db"           --description "Database session"        --color "065f46"
+# gh label create "agent:pipeline"     --description "Data Pipeline session"   --color "9a3412"
+# gh label create "agent:ai-devops"    --description "AI/ML + DevOps session"  --color "6d28d9"
+# gh label create "agent:content"      --description "Content session"         --color "0b1733"
+# gh label create "agent:legal"        --description "Legal review session"    --color "b91c1c"
+# gh label create "agent:seo"          --description "SEO session"             --color "78350f"
+# gh label create "phase:1"            --description "Phase 1"                 --color "e5e7eb"
+# gh label create "phase:2"            --description "Phase 2"                 --color "d1d5db"
+# gh label create "phase:3"            --description "Phase 3"                 --color "9ca3af"
+# gh label create "phase:5"            --description "Phase 5"                 --color "6b7280"
+# gh label create "priority:high"      --description "High priority"           --color "b91c1c"
+# gh label create "priority:medium"    --description "Medium priority"         --color "f59e0b"
+# gh label create "priority:low"       --description "Low priority"            --color "9ca3af"
+# gh label create "status:in-progress" --description "Actively being worked on" --color "0369a1"
+# gh label create "status:review"      --description "Awaiting PM review"      --color "f59e0b"
+# gh label create "status:blocked"     --description "Blocked"                 --color "b91c1c"
+# gh label create "status:approved"    --description "Approved, awaiting merge" --color "16a34a"
+# gh label create "type:feature"       --description "New feature"             --color "16a34a"
+# gh label create "type:bug"           --description "Bug fix"                 --color "b91c1c"
+# gh label create "type:refactor"      --description "Refactor"                --color "78716c"
+# gh label create "type:docs"          --description "Documentation only"      --color "0369a1"
+# gh label create "type:chore"         --description "Tooling/deps/infra"      --color "6b7280"
+# gh label create "needs:legal-review" --description "Requires Legal review"   --color "b91c1c"
+# gh label create "needs:content-review" --description "Requires Content review" --color "0b1733"
+# gh label create "civic-violation"    --description "Civic-principle violation" --color "991b1b"

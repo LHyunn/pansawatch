@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 세션 프롬프트 가이드
+    url: https://github.com/__OWNER__/__REPO__/tree/main/docs/session-prompts
+    about: 어떤 세션이 어떤 영역을 담당하는지 확인하고 적절한 도메인 템플릿을 선택하세요.
+  - name: 프로젝트 브리프 v2
+    url: https://github.com/__OWNER__/__REPO__/blob/main/pansawatch-project-brief-v2.md
+    about: PansaWatch 의 비전·법적 분석·Phase 명세.
