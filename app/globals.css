@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+:root {
+  /* Civic palette — 공공기록물 톤 */
+  --color-background: #f4f6fa;
+  --color-foreground: #020617;
+
+  --color-navy-900: #0b1733;
+  --color-navy-800: #142146;
+  --color-navy-700: #1e2d5c;
+  --color-navy-600: #2a3b78;
+  --color-navy-500: #3b4f9c;
+  --color-navy-100: #dde3f2;
+  --color-navy-50: #eef1f8;
+
+  /* civic blue — primary accent (replaces amber) */
+  --color-civic-700: #075985;
+  --color-civic-600: #0369a1;
+  --color-civic-500: #0284c7;
+  --color-civic-100: #e0f2fe;
+  --color-civic-50: #f0f9ff;
+
+  /* judicial seal red — RESERVED for disclaimer / 경고 only */
+  --color-seal-700: #991b1b;
+  --color-seal-600: #b91c1c;
+  --color-seal-100: #fee2e2;
+  --color-seal-50: #fef2f2;
+
+  /* paper / surface */
+  --color-paper: #f4f6fa;
+  --color-paper-100: #eaeef5;
+  --color-surface: #ffffff;
+
+  /* line / border */
+  --color-line: #d4dae5;
+  --color-line-soft: #e2e6ee;
+
+  /* muted text */
+  --color-muted: #475569;
+  --color-muted-soft: #64748b;
+  --color-muted-faint: #94a3b8;
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-navy: var(--color-navy-800);
+  --color-navy-50: var(--color-navy-50);
+  --color-navy-100: var(--color-navy-100);
+  --color-navy-500: var(--color-navy-500);
+  --color-navy-600: var(--color-navy-600);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-900: var(--color-navy-900);
+  --color-civic-50: var(--color-civic-50);
+  --color-civic-100: var(--color-civic-100);
+  --color-civic-500: var(--color-civic-500);
+  --color-civic-600: var(--color-civic-600);
+  --color-civic-700: var(--color-civic-700);
+  --color-seal-50: var(--color-seal-50);
+  --color-seal-100: var(--color-seal-100);
+  --color-seal-600: var(--color-seal-600);
+  --color-seal-700: var(--color-seal-700);
+  --color-paper: var(--color-paper);
+  --color-paper-100: var(--color-paper-100);
+  --color-surface: var(--color-surface);
+  --color-line: var(--color-line);
+  --color-line-soft: var(--color-line-soft);
+  --color-muted: var(--color-muted);
+  --color-muted-soft: var(--color-muted-soft);
+  --color-muted-faint: var(--color-muted-faint);
+  --font-sans: var(--font-sans-stack);
+  --font-serif: var(--font-serif-stack);
+  --font-mono: var(--font-mono-stack);
+}
+
+html {
+  --font-sans-stack: "Pretendard Variable", "Pretendard", -apple-system,
+    BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR",
+    "Segoe UI", Roboto, sans-serif;
+  --font-serif-stack: "Noto Serif KR", "Nanum Myeongjo", "Times New Roman", serif;
+  --font-mono-stack: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-foreground);
+  font-family: var(--font-sans-stack);
+  font-feature-settings: "ss01", "tnum", "kern";
+  /* 한글 단어 중간 줄바꿈 방지 — 어절 단위로 끊김 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif {
+  font-family: var(--font-serif-stack);
+}
+
+.font-mono {
+  font-family: var(--font-mono-stack);
+  font-feature-settings: "tnum", "zero";
+}
+
+::selection {
+  background: var(--color-navy-100);
+  color: var(--color-navy-900);
+}
+
+/* Visible focus rings for keyboard a11y (WCAG / accessible-ethical) */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-civic-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Civic eyebrow — 섹션 제목 위 작은 라벨 */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-navy-900);
+}
+
+.eyebrow-civic {
+  color: var(--color-civic-700);
+}
+.eyebrow-civic::before {
+  background: var(--color-civic-600);
+}
+
+/* Editorial rule — 점선 가로줄 */
+.editorial-rule {
+  background-image: linear-gradient(
+    to right,
+    var(--color-navy-900) 0%,
+    var(--color-navy-900) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+  background-position: bottom;
+}
+
+/* kbd — 키보드 단축키 표시 */
+.kbd {
+  font-family: var(--font-mono-stack);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  padding: 1px 6px;
+  font-size: 11px;
+  border-radius: 3px;
+  color: var(--color-muted);
+  box-shadow: 0 1px 0 0 var(--color-line);
+}
+
+/* Tag — 분류 라벨 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  background: var(--color-surface);
+  letter-spacing: 0.02em;
+}
+
+.tag-navy {
+  background: var(--color-navy-50);
+  border-color: var(--color-navy-100);
+  color: var(--color-navy-700);
+}
+
+.tag-civic {
+  background: var(--color-civic-50);
+  border-color: var(--color-civic-100);
+  color: var(--color-civic-700);
+}
+
+.tag-seal {
+  background: var(--color-seal-50);
+  border-color: var(--color-seal-100);
+  color: var(--color-seal-700);
+}
+
+.tag-mono {
+  font-family: var(--font-mono-stack);
+  font-size: 10.5px;
+  letter-spacing: 0;
+}
+
+/* Number block — 통계 강조 */
+.figure-number {
+  font-family: var(--font-serif-stack);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--color-navy-900);
+}
+
+/* Notice band — 정부/법원 사이트 풍 안내 바 */
+.notice-band {
+  background: var(--color-navy-900);
+  color: #ffffff;
+  border-bottom: 1px solid var(--color-navy-700);
+}
+
+/* Stamp — 면책 박스 (judicial seal) */
+.stamp-box {
+  border: 1px solid var(--color-seal-100);
+  background: var(--color-seal-50);
+  color: var(--color-seal-700);
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

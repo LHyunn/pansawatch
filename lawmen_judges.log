@@ -1,0 +1,3 @@
+출력: lawmen_judges.csv  (기존 수집 3258건)
+필터: sort='판사,대법관'  pacing=10.0s  limit=None
+완료: 신규 3건, 실패 0건, 스킵 3259건 → lawmen_judges.csv

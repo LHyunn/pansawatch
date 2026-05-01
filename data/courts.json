@@ -1,0 +1,182 @@
+[
+  {
+    "id": "court-1",
+    "name": "대법원",
+    "type": "supreme",
+    "region": "서울특별시",
+    "address": "서울특별시 서초구 서초대로 219",
+    "latitude": 37.4949,
+    "longitude": 127.0070,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-2",
+    "name": "서울고등법원",
+    "type": "high",
+    "region": "서울특별시",
+    "address": "서울특별시 서초구 서초중앙로 157",
+    "latitude": 37.4942,
+    "longitude": 127.0078,
+    "judgeCount": 6
+  },
+  {
+    "id": "court-3",
+    "name": "서울중앙지방법원",
+    "type": "district",
+    "region": "서울특별시",
+    "address": "서울특별시 서초구 서초중앙로 157",
+    "latitude": 37.4937,
+    "longitude": 127.0076,
+    "judgeCount": 8
+  },
+  {
+    "id": "court-4",
+    "name": "서울동부지방법원",
+    "type": "district",
+    "region": "서울특별시",
+    "address": "서울특별시 송파구 법원로 101",
+    "latitude": 37.4789,
+    "longitude": 127.1187,
+    "judgeCount": 3
+  },
+  {
+    "id": "court-5",
+    "name": "서울남부지방법원",
+    "type": "district",
+    "region": "서울특별시",
+    "address": "서울특별시 양천구 신월로 386",
+    "latitude": 37.5181,
+    "longitude": 126.8654,
+    "judgeCount": 2
+  },
+  {
+    "id": "court-6",
+    "name": "서울북부지방법원",
+    "type": "district",
+    "region": "서울특별시",
+    "address": "서울특별시 도봉구 마들로 749",
+    "latitude": 37.6555,
+    "longitude": 127.0467,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-7",
+    "name": "서울서부지방법원",
+    "type": "district",
+    "region": "서울특별시",
+    "address": "서울특별시 마포구 마포대로 174",
+    "latitude": 37.5470,
+    "longitude": 126.9485,
+    "judgeCount": 2
+  },
+  {
+    "id": "court-8",
+    "name": "서울가정법원",
+    "type": "family",
+    "region": "서울특별시",
+    "address": "서울특별시 양천구 신월로 386",
+    "latitude": 37.5181,
+    "longitude": 126.8654,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-9",
+    "name": "서울행정법원",
+    "type": "administrative",
+    "region": "서울특별시",
+    "address": "서울특별시 서초구 양재동 270",
+    "latitude": 37.4711,
+    "longitude": 127.0397,
+    "judgeCount": 2
+  },
+  {
+    "id": "court-10",
+    "name": "수원지방법원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 수원시 영통구 법조로 105",
+    "latitude": 37.2884,
+    "longitude": 127.0588,
+    "judgeCount": 2
+  },
+  {
+    "id": "court-11",
+    "name": "인천지방법원",
+    "type": "district",
+    "region": "인천광역시",
+    "address": "인천광역시 미추홀구 소성로163번길 17",
+    "latitude": 37.4476,
+    "longitude": 126.6586,
+    "judgeCount": 2
+  },
+  {
+    "id": "court-12",
+    "name": "의정부지방법원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 의정부시 녹양로34번길 23",
+    "latitude": 37.7458,
+    "longitude": 127.0379,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-13",
+    "name": "춘천지방법원",
+    "type": "district",
+    "region": "강원특별자치도",
+    "address": "강원특별자치도 춘천시 공지로 284",
+    "latitude": 37.8728,
+    "longitude": 127.7461,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-14",
+    "name": "대전지방법원",
+    "type": "district",
+    "region": "대전광역시",
+    "address": "대전광역시 서구 둔산중로78번길 45",
+    "latitude": 36.3556,
+    "longitude": 127.3845,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-15",
+    "name": "대구지방법원",
+    "type": "district",
+    "region": "대구광역시",
+    "address": "대구광역시 수성구 동대구로 364",
+    "latitude": 35.8657,
+    "longitude": 128.6105,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-16",
+    "name": "부산지방법원",
+    "type": "district",
+    "region": "부산광역시",
+    "address": "부산광역시 연제구 법원로 31",
+    "latitude": 35.1924,
+    "longitude": 129.0741,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-17",
+    "name": "광주지방법원",
+    "type": "district",
+    "region": "광주광역시",
+    "address": "광주광역시 동구 준법로 7-12",
+    "latitude": 35.1467,
+    "longitude": 126.9226,
+    "judgeCount": 1
+  },
+  {
+    "id": "court-18",
+    "name": "제주지방법원",
+    "type": "district",
+    "region": "제주특별자치도",
+    "address": "제주특별자치도 제주시 남광북5길 3",
+    "latitude": 33.4980,
+    "longitude": 126.5311,
+    "judgeCount": 1
+  }
+]
