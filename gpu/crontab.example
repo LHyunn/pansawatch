@@ -1,0 +1,49 @@
+# PansaWatch — daily pipeline schedule (참조용)
+# GPU 서버 (gpuadmin@115.145.134.192) crontab에 다음 두 줄을 등록.
+#
+# 등록 방법:
+#   ssh -p 10002 gpuadmin@115.145.134.192
+#   crontab -e
+#   (아래 두 줄 붙여넣기, :wq 저장)
+#   crontab -l   # 등록 확인
+#
+# 시간대를 KST로 명시 (서버 timezone과 무관하게 동작 보장)
+TZ=Asia/Seoul
+
+# 매일 12:00 KST — 점심 시점 1차 수집
+0 12 * * * /home/gpuadmin/pansawatch/scripts/cron/run-daily.sh
+
+# 매일 18:00 KST — 저녁 시점 2차 수집 (오후 선고·후속 보도 흡수)
+0 18 * * * /home/gpuadmin/pansawatch/scripts/cron/run-daily.sh
+
+# ─────────────────────────────────────────────────────────────────────
+# 사전 요구사항 (1회 setup)
+#
+# 1. 프로젝트가 /home/gpuadmin/pansawatch/ 에 clone됨
+# 2. /home/gpuadmin/pansawatch/.env.runtime 파일에 운영 환경변수 작성:
+#
+#    NAVER_CLIENT_ID=...
+#    NAVER_CLIENT_SECRET=...
+#    LOCAL_LLM_BASE_URL=http://localhost:8000/v1
+#    EMBED_BASE_URL=http://localhost:8001/v1
+#    LLM_MODEL=google/gemma-4-31B-it
+#    EMBED_MODEL=nlpai-lab/KURE-v1
+#
+# 3. node가 PATH에 있어야 함. 없으면 cron 환경에 명시:
+#       NODE_BIN=/home/gpuadmin/.nvm/versions/node/v24.x.x/bin/node
+#       0 12 * * * NODE_BIN=$NODE_BIN /home/gpuadmin/pansawatch/scripts/cron/run-daily.sh
+#
+# 4. 두 vLLM 컨테이너가 항상 떠있어야 함 (docker compose의 restart: unless-stopped)
+#
+# 5. run-daily.sh에 실행 권한:
+#       chmod +x /home/gpuadmin/pansawatch/scripts/cron/run-daily.sh
+#
+# ─────────────────────────────────────────────────────────────────────
+# 동작 검증 (등록 후)
+#
+# 1분 트리거로 임시 등록해 즉시 실행 확인:
+#   * * * * * /home/gpuadmin/pansawatch/scripts/cron/run-daily.sh
+# 1분 후 logs/pipeline-*.log 생성 확인 → 정상이면 원래 12/18로 복원.
+#
+# 로그 위치: /home/gpuadmin/pansawatch/logs/pipeline-{date}T{HHMM}.log
+# 14일 이상 로그는 자동 정리.
