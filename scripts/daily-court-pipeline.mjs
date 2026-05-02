@@ -48,10 +48,45 @@ const querySlug = query.replace(/\s+/g, "-");
 const ROOT = "data/news/raw";
 const REPORTS = "data/reports";
 const SEARCH_PATH = `${ROOT}/${querySlug}-${date}.json`;
+const SUBSET_PATH = `${ROOT}/${querySlug}-${date}-subset.json`;
 const BODIES_PATH = `data/news/bodies/${querySlug}-${date}.json`;
 const CASES_PATH = `data/eval/cases-${querySlug}-${date}.json`;
 const REPORT_PATH = `${REPORTS}/daily-${date}.json`;
 const MATCH_REPORT_PATH = `${REPORTS}/match-daily-${date}.json`;
+
+// ─── Civic policy §2-5: 기사 본문 휘발 처리 ─────────────────────────
+// IE 입력으로만 본문을 사용하고, 파이프라인 종료 시 (정상·비정상·SIGINT 무관)
+// 즉시 폐기. 디버그·재시도가 필요하면 PIPELINE_KEEP_BODIES=1 으로 실행.
+let civicCleanupRan = false;
+async function civicCleanup(reason) {
+  if (civicCleanupRan) return;
+  civicCleanupRan = true;
+  if (process.env.PIPELINE_KEEP_BODIES === "1") {
+    console.error(`[civic-cleanup:${reason}] PIPELINE_KEEP_BODIES=1 — 본문 보존 (디버그 모드)`);
+    return;
+  }
+  let removed = 0;
+  for (const p of [BODIES_PATH, SUBSET_PATH]) {
+    try {
+      await fs.unlink(p);
+      removed++;
+    } catch (e) {
+      if (e.code !== "ENOENT") console.error(`[civic-cleanup] ${p}: ${e.message}`);
+    }
+  }
+  console.error(`[civic-cleanup:${reason}] ${removed}개 파일 폐기됨 (시빅 정책 §2-5)`);
+}
+// Signal handlers — Ctrl+C, SIGTERM, uncaught error 모두 cleanup 후 종료.
+process.on("SIGINT", () => civicCleanup("SIGINT").finally(() => process.exit(130)));
+process.on("SIGTERM", () => civicCleanup("SIGTERM").finally(() => process.exit(143)));
+process.on("uncaughtException", (e) => {
+  console.error("Uncaught exception:", e.stack || e);
+  civicCleanup("exception").finally(() => process.exit(1));
+});
+process.on("unhandledRejection", (e) => {
+  console.error("Unhandled rejection:", e);
+  civicCleanup("rejection").finally(() => process.exit(1));
+});
 
 async function ensureDir(p) {
   await fs.mkdir(p, { recursive: true });
@@ -125,7 +160,6 @@ console.error(`▸ [2b/5] Fetch bodies for case-relevant articles only`);
 const usedIndices = new Set();
 for (const c of caseData.cases) for (const i of c.title_indices) usedIndices.add(i);
 const subsetItems = [...usedIndices].map((i) => search.items[i]);
-const SUBSET_PATH = `${ROOT}/${querySlug}-${date}-subset.json`;
 await fs.writeFile(
   SUBSET_PATH,
   JSON.stringify({ ...search, items: subsetItems, _note: "subset of titles in qualifying cases" }, null, 2),
@@ -545,6 +579,9 @@ console.error(`Master size:       ${masterBefore} → ${masterAfter}`);
 console.error(`Avg IE latency:    ${report.stats.avg_ie_latency_sec ?? "n/a"}s/case`);
 console.error(`\nReport       → ${REPORT_PATH}`);
 console.error(`Match report → ${MATCH_REPORT_PATH}\n`);
+
+// ─── Civic policy §2-5: 정상 종료 시 본문 휘발 처리 ──────────────────
+await civicCleanup("normal-exit");
 
 // Brief preview
 for (const r of caseReports.filter((r) => r.ie)) {
