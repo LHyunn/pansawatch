@@ -27,25 +27,30 @@ docker run --rm --gpus all nvidia/cuda:12.4.0-base-ubuntu22.04 nvidia-smi  # smo
 
 ## Deploy
 
+PansaWatch는 GPU 서버의 `/home/hyun/` 을 프로젝트 root로 사용. gpu/, scripts/, data/ 가 home 직하 위치.
+
 ```bash
-# 1. Copy this gpu/ directory to the GPU server
-#    (from your local machine)
-scp -P 10002 -r gpu/ gpuadmin@115.145.134.192:~/pansawatch-llm/
+# 1. 프로젝트 sync (로컬 → GPU 서버)
+rsync -avz -e "ssh -p 10002" --exclude='node_modules' --exclude='.next' \
+  ./ hyun@115.145.134.192:/home/hyun/
 
 # 2. SSH in
-ssh -p 10002 gpuadmin@115.145.134.192
-cd ~/pansawatch-llm
+ssh -p 10002 hyun@115.145.134.192
+cd /home/hyun/gpu
 
 # 3. Configure
 cp .env.example .env
 $EDITOR .env  # Set HF_TOKEN, MODEL
 
-# 4. Start (first run will download the model — 15-50GB depending on quant)
+# 4. (수동 테스트) 컨테이너 기동 + 헬스 체크
 docker compose pull
 docker compose up -d
+./healthcheck.sh
 
-# 5. Watch logs while loading (model load takes 1-3 min once downloaded)
-docker compose logs -f vllm
+# 5. (수동 테스트 종료 후) 컨테이너 내림
+docker compose down
+
+# 6. 운영은 cron이 자동 처리 — gpu/crontab.example 참조
 
 # 6. Verify
 chmod +x healthcheck.sh
@@ -122,8 +127,10 @@ cloudflared tunnel --url http://localhost:8000
 
 ## Operational notes
 
-- **Disk**: model cache lives in `./hf-cache/` (mapped from `HF_CACHE_DIR`). 27B AWQ ~14GB on disk; FP8 ~27GB; BF16 ~54GB.
-- **Restart cost**: container restart reloads the model from disk (~1-3 min). HF downloads happen only on first run with that model name.
-- **Logs**: `docker compose logs -f vllm` (rotated at 100MB × 5 files).
-- **Updates**: `docker compose pull && docker compose up -d` — vLLM is rapidly evolving, especially for new models.
-- **Single-GPU exposure**: this is a single-GPU deployment with no failover. If vLLM crashes, the IE pipeline blocks. PansaWatch should implement Claude API fallback for critical-path requests (see hybrid IE design in `docs/pipeline-architecture.md`).
+- **Container lifecycle (운영)**: `restart: "no"` 정책. cron entrypoint (`scripts/cron/run-daily.sh`) 가 매 실행 시 자동으로 `docker compose up -d` → `down` 으로 라이프사이클 관리. **평소엔 컨테이너가 떠있지 않음** — GPU 자유.
+- **Cold start cost**: 매 cron 실행마다 콜드 스타트. Gemma 4 31B FP8 ~3-5분, KURE-v1 ~30초 로드. HF 캐시는 `./hf-cache/` 영속이므로 weight 재다운로드 없음.
+- **Total run time**: 컨테이너 기동 ~5분 + 파이프라인 ~17분 + down ~10초 = **약 22분/run**. cron 12:00, 18:00 = 일일 GPU 점유 ~44분.
+- **Disk**: 모델 캐시 `./hf-cache/`. Gemma 4 31B ~62GB (BF16) → FP8로 양자화되어 GPU에 31GB 로드. KURE-v1 ~1.1GB.
+- **Logs**: pipeline 로그는 `~/logs/pipeline-*.log`, vLLM 로그는 `docker compose logs vllm-gemma4`.
+- **수동 디버그**: `cd gpu/ && docker compose up -d && ./healthcheck.sh` 로 컨테이너 띄워두고 ad-hoc 호출 가능. 작업 후 `docker compose down`.
+- **Single-GPU exposure**: 단일 GPU 호스트 배포로 failover 없음. vLLM 콜드 스타트 실패 시 cron 종료 (코드 2). 다음 run에서 자동 재시도.
