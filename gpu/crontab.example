@@ -11,17 +11,17 @@
 TZ=Asia/Seoul
 
 # 매일 12:00 KST — 점심 시점 1차 수집
-0 12 * * * /home/hyun/scripts/cron/run-daily.sh
+0 12 * * * /home/hyun/gpu/run-daily.sh
 
 # 매일 18:00 KST — 저녁 시점 2차 수집 (오후 선고·후속 보도 흡수)
-0 18 * * * /home/hyun/scripts/cron/run-daily.sh
+0 18 * * * /home/hyun/gpu/run-daily.sh
 
 # ─────────────────────────────────────────────────────────────────────
 # 사전 요구사항 (1회 setup)
 #
-# 1. 프로젝트가 /home/hyun/ 에 clone됨 (project root = home directory)
-#    /home/hyun/gpu/                — docker-compose, healthcheck
-#    /home/hyun/scripts/cron/       — cron entrypoint
+# 1. 프로젝트가 /home/hyun/ 에 clone됨 (project root = /home/hyun)
+#    /home/hyun/gpu/                — docker-compose, healthcheck, run-daily.sh (cron entrypoint)
+#    /home/hyun/scripts/            — pipeline 스크립트
 #    /home/hyun/scripts/lib/        — 매칭 라이브러리
 #    /home/hyun/data/               — 산출물 (gitignored)
 #
@@ -36,20 +36,20 @@ TZ=Asia/Seoul
 #
 # 3. node가 PATH에 있어야 함. 없으면 cron 환경에 명시:
 #       NODE_BIN=/home/hyun/.nvm/versions/node/v24.x.x/bin/node
-#       0 12 * * * NODE_BIN=$NODE_BIN /home/hyun/scripts/cron/run-daily.sh
+#       0 12 * * * NODE_BIN=$NODE_BIN /home/hyun/gpu/run-daily.sh
 #
 # 4. vLLM 컨테이너는 cron entrypoint가 자동으로 띄우고/내림.
 #    `restart: "no"` 로 설정되어 평소엔 떠있지 않음 (GPU 자유).
 #    수동 테스트는: cd /home/hyun/gpu && docker compose up -d && ./healthcheck.sh
 #
 # 5. run-daily.sh에 실행 권한:
-#       chmod +x /home/hyun/scripts/cron/run-daily.sh
+#       chmod +x /home/hyun/gpu/run-daily.sh
 #
 # ─────────────────────────────────────────────────────────────────────
 # 동작 검증 (등록 후)
 #
 # 1분 트리거로 임시 등록해 즉시 실행 확인:
-#   * * * * * /home/hyun/scripts/cron/run-daily.sh
+#   * * * * * /home/hyun/gpu/run-daily.sh
 # 1분 후 logs/pipeline-*.log 생성 확인 → 정상이면 원래 12/18로 복원.
 #
 # 로그 위치: /home/hyun/logs/pipeline-{date}T{HHMM}.log

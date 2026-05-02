@@ -11,14 +11,14 @@
 #
 # crontab:
 #   TZ=Asia/Seoul
-#   0 12 * * * /home/hyun/scripts/cron/run-daily.sh
-#   0 18 * * * /home/hyun/scripts/cron/run-daily.sh
+#   0 12 * * * /home/hyun/gpu/run-daily.sh
+#   0 18 * * * /home/hyun/gpu/run-daily.sh
 
 set -euo pipefail
 
-# Project root (this script lives at <root>/scripts/cron/run-daily.sh)
+# Project root (this script lives at <root>/gpu/run-daily.sh)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 cd "${ROOT}"
 
 DATE="$(date +%F)"
