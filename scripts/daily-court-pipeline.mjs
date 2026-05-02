@@ -94,7 +94,9 @@ async function ensureDir(p) {
 
 function runSubprocess(cmd, scriptArgs, label) {
   return new Promise((resolve, reject) => {
-    const proc = spawn("node", [cmd, ...scriptArgs], {
+    // process.execPath = 현재 Node 바이너리의 절대경로.
+    // cron 환경처럼 PATH 제한적인 곳에서도 안정적으로 spawn 됨.
+    const proc = spawn(process.execPath, [cmd, ...scriptArgs], {
       stdio: ["ignore", "inherit", "inherit"],
       env: process.env,
     });
