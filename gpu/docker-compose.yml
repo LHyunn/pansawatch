@@ -1,0 +1,116 @@
+# PansaWatch — vLLM dual-service deployment for daily court news pipeline.
+#
+# Two services on dedicated GPUs:
+#   vllm-gemma4 (port 8000)  — Generation: clustering, multi-doc IE
+#   vllm-embed  (port 8001)  — Embedding: KURE-v1 for case dedup
+#
+# Target hardware (현재 운영):
+#   GPU 0 = NVIDIA RTX 6000 Ada Generation (48GB) → Gemma 4 31B FP8 (~31GB)
+#   GPU 1 = NVIDIA RTX 5000 Ada Generation (32GB) → KURE-v1 568M (~5GB)
+#
+# Driver compatibility: vLLM v0.20.0-cu129 verified on driver 560 (CUDA 12.6 max).
+# `vllm/vllm-openai:latest` requires CUDA 13.0 (driver ≥575) — do NOT use until driver upgrade.
+#
+# Lifecycle policy:
+#   restart: "no" — 컨테이너는 명시적으로 띄울 때만 동작.
+#   파이프라인 cron entrypoint (scripts/cron/run-daily.sh) 가:
+#     1. 실행 시작 시 `docker compose up -d` 로 띄움
+#     2. /health 대기 (콜드 스타트 ~3-5분)
+#     3. 파이프라인 실행
+#     4. 종료 시 `docker compose down` 으로 자동 정리 (성공·실패 무관)
+#   GPU는 cron 실행 시간(~17분)만 점유, 그 외 시간엔 다른 작업이 사용 가능.
+#
+# Quick start (수동 실행):
+#   1. cp .env.example .env
+#   2. (선택) HF_TOKEN 설정 — Gemma 4·KURE-v1 모두 공개라 미설정 가능
+#   3. docker compose up -d
+#   4. ./healthcheck.sh
+#   5. (작업 후) docker compose down
+
+services:
+  vllm-gemma4:
+    image: ${VLLM_IMAGE:-vllm/vllm-openai:v0.20.0-cu129}
+    container_name: pansawatch-llm
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${LLM_GPU_DEVICE:-0}"]
+              capabilities: [gpu]
+    ports:
+      - "${LLM_PORT:-8000}:8000"
+    volumes:
+      - ${HF_CACHE_DIR:-./hf-cache}:/root/.cache/huggingface
+    ipc: host
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+      HF_HUB_ENABLE_HF_TRANSFER: "1"
+    command:
+      - --model
+      - ${LLM_MODEL:-google/gemma-4-31B-it}
+      - --quantization
+      - ${LLM_QUANTIZATION:-fp8}
+      - --kv-cache-dtype
+      - ${KV_CACHE_DTYPE:-fp8}
+      - --max-model-len
+      - ${MAX_MODEL_LEN:-16384}
+      - --max-num-batched-tokens
+      - ${MAX_BATCHED_TOKENS:-16384}
+      - --max-num-seqs
+      - ${MAX_NUM_SEQS:-4}
+      - --gpu-memory-utilization
+      - ${LLM_GPU_MEM_UTIL:-0.95}
+      - --enable-prefix-caching
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 1800s
+    logging:
+      driver: json-file
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  vllm-embed:
+    image: ${VLLM_IMAGE:-vllm/vllm-openai:v0.20.0-cu129}
+    container_name: pansawatch-embed
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${EMBED_GPU_DEVICE:-1}"]
+              capabilities: [gpu]
+    ports:
+      - "${EMBED_PORT:-8001}:8000"
+    volumes:
+      - ${HF_CACHE_DIR:-./hf-cache}:/root/.cache/huggingface
+    ipc: host
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+      HF_HUB_ENABLE_HF_TRANSFER: "1"
+    command:
+      - --model
+      - ${EMBED_MODEL:-nlpai-lab/KURE-v1}
+      - --convert
+      - embed
+      - --max-model-len
+      - ${EMBED_MAX_LEN:-8192}
+      - --gpu-memory-utilization
+      - ${EMBED_GPU_MEM_UTIL:-0.5}
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 600s
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
