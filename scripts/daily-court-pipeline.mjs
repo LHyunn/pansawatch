@@ -359,13 +359,30 @@ function pickTopArticles(c, n) {
   return picked;
 }
 
+// IE 입력 본문 1편당 한도. max_model_len=16384 토큰 한도 안에서
+// 입력 ~10K(시스템+few-shot+본문) + 출력 ~4K + 마진 ~2K 분배 기준.
+// 한국어 1.5 tok/char 가정 시 3편 × 4000자 = ~9000 토큰. 안전 마진 확보.
+// 한국 법률 보도 중앙값 1145자라 트렁케이션 영향은 상위 ~25% (장문 분석 기사) 한정.
+const IE_BODY_CHAR_LIMIT = 4000;
+
 async function ieMultiDoc(c, picked) {
-  const articlesText = picked
+  // 1편당 4000자로 트렁케이션 (메모리 내 처리, 디스크 풀텍스트는 그대로 → civicCleanup 정합).
+  const truncated = picked.map((p) => {
+    const orig = p.body.body || "";
+    return { ...p, _origChars: orig.length, _body: orig.slice(0, IE_BODY_CHAR_LIMIT) };
+  });
+
+  const articlesText = truncated
     .map(
       (p, i) =>
-        `<기사 ${i + 1} — ${p.body.publisher || "?"} | ${p.body.pub_date}>\n${p.body.body}\n</기사 ${i + 1}>`,
+        `<기사 ${i + 1} — ${p.body.publisher || "?"} | ${p.body.pub_date}>\n${p._body}\n</기사 ${i + 1}>`,
     )
     .join("\n\n");
+
+  // 측정 로그 — N=4000 적정성 데이터-driven 조정 근거.
+  const origChars = truncated.map((p) => p._origChars);
+  const finalChars = truncated.map((p) => p._body.length);
+  console.error(`  [ie] case="${c.case_name.slice(0, 30)}" origChars=[${origChars.join(",")}] finalChars=[${finalChars.join(",")}] joinChars=${articlesText.length}`);
 
   const userMsg = `타겟 피고인: ${c.main_actors[0] || "?"} — 다른 피고인 등장해도 타겟 정보만 추출.\n\n${articlesText}\n\n위 ${picked.length}개 매체의 보도를 통합한 단일 JSON.`;
 
