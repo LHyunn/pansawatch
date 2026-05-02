@@ -11,8 +11,8 @@
 #
 # crontab:
 #   TZ=Asia/Seoul
-#   0 12 * * * /home/hyun/gpu/run-daily.sh
-#   0 18 * * * /home/hyun/gpu/run-daily.sh
+#   0 12 * * * /home/hyun/pansawatch/gpu/run-daily.sh
+#   0 18 * * * /home/hyun/pansawatch/gpu/run-daily.sh
 
 set -euo pipefail
 

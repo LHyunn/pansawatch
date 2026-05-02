@@ -27,16 +27,16 @@ docker run --rm --gpus all nvidia/cuda:12.4.0-base-ubuntu22.04 nvidia-smi  # smo
 
 ## Deploy
 
-PansaWatch는 GPU 서버의 `/home/hyun/` 을 프로젝트 root로 사용. gpu/, scripts/, data/ 가 home 직하 위치.
+PansaWatch는 GPU 서버의 `/home/hyun/pansawatch/` 를 프로젝트 root로 사용 (Linux 사용자는 `gpuadmin`, `hyun`은 디렉토리명).
 
 ```bash
 # 1. 프로젝트 sync (로컬 → GPU 서버)
 rsync -avz -e "ssh -p 10002" --exclude='node_modules' --exclude='.next' \
-  ./ hyun@115.145.134.192:/home/hyun/
+  ./ gpuadmin@115.145.134.192:/home/hyun/pansawatch/
 
 # 2. SSH in
-ssh -p 10002 hyun@115.145.134.192
-cd /home/hyun/gpu
+ssh -p 10002 gpuadmin@115.145.134.192
+cd /home/hyun/pansawatch/gpu
 
 # 3. Configure
 cp .env.example .env
