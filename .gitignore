@@ -54,3 +54,6 @@ Thumbs.db
 
 # Claude Code (user-local settings)
 .claude/settings.local.json
+
+# research / experiment workspace (owner-area, not tracked)
+/research/
