@@ -25,18 +25,29 @@ Trigger this skill when **all** of the following hold:
 ## What the wrapper does (one command, end-to-end)
 
 ```bash
-HF_TOKEN=hf_xxx node scripts/extract-and-register.mjs <naver-url> [<url2> ...]
+HF_TOKEN=hf_xxx node scripts/extract-and-register.mjs <naver-url> [<url2> ...] [--keep]
 ```
 
-Steps inside:
+### `--keep` 옵션 — 컨테이너 유지/정리 선택
+
+- **default** (no flag): 실행 끝나면 컨테이너 제거 + GPU 메모리 회수.
+- **`--keep`**: 실행 끝나도 컨테이너 유지. 다음 호출 시 자동으로 warm reuse (모델 재로드 없음, 호출당 ~10초만 추가).
+
+권장 패턴:
+- 한 번에 끝낼 작업 → 옵션 없이 (기본).
+- 여러 번에 나눠 올릴 때 → 중간 호출은 `--keep`, **마지막 호출에선 `--keep` 빼기** → 자연스럽게 정리됨.
+- 명시적으로 즉시 내리고 싶으면: `ssh -p <GPU_SSH_PORT> <GPU_SSH_USER>@<GPU_SSH_HOST> 'docker rm -f pansawatch-extract'`
+
+### Steps inside
 
 1. **Pre-check** — drops URLs already present in `data/articles.json` (idempotent; same URL re-run = no GPU cost).
 2. **Extract** — invokes `scripts/extract-from-naver-url.mjs`:
-   - Starts vLLM container `vllm/vllm-openai:v0.20.1-cu129` with `google/gemma-4-31B-it` (FP8 online quantization).
+   - **Warm reuse**: 컨테이너가 이미 떠있고 `/health` OK면 그대로 재사용 (모델 재로드 skip).
+   - 그렇지 않으면 vLLM 컨테이너 `vllm/vllm-openai:v0.20.1-cu129` + `google/gemma-4-31B-it` (FP8 online quantization) 신규 시작.
    - Waits for `/health` (~3.5 min cold, ~30s warm if cache hot).
    - Fetches each URL → parses Naver mirror DOM → calls LLM with strict JSON schema.
    - Returns `{date, court, bench, case_number, judge, charges, demand, sentence, summary1, summary2}` per URL.
-   - Stops & removes container, freeing GPU memory.
+   - `--keep` 미지정 시 컨테이너 종료 + GPU 메모리 회수.
 3. **Register** — for each successful extraction:
    - Saves full extraction → `data/news-extractions/article-N.json`.
    - Appends simplified entry → `data/articles.json` (`id, title, url, source, publishedAt, aiSummary=summary2, collectedAt`).
@@ -105,6 +116,23 @@ Re-running on the same URL → skipped instantly, no GPU spin-up:
     article-N  https://n.news.naver.com/...
 Nothing to do — all URLs are already registered. Exiting (no GPU spin-up).
 ```
+
+### Warm-reuse 패턴 (여러 번 나눠 올릴 때)
+```bash
+# 첫 번째 — 컨테이너 시작 + 기사 1 등록 + 컨테이너 유지
+HF_TOKEN=hf_xxx node scripts/extract-and-register.mjs <url1> --keep      # 3.8분
+
+# 두 번째 — warm reuse + 기사 2 등록 + 컨테이너 유지  
+HF_TOKEN=hf_xxx node scripts/extract-and-register.mjs <url2> --keep      # ~12초
+
+# 세 번째 — warm reuse + 기사 3 등록 + 컨테이너 유지
+HF_TOKEN=hf_xxx node scripts/extract-and-register.mjs <url3> --keep      # ~12초
+
+# … 마지막 — warm reuse + 등록 + **컨테이너 정리** (--keep 빼기)
+HF_TOKEN=hf_xxx node scripts/extract-and-register.mjs <urlN>             # ~14초 (정리 포함)
+```
+
+3건 미만일 때도 warm reuse 덕에 다중 URL 한 번에 묶는 것보다 시간 거의 동일. **단점은 GPU가 그동안 ~32GB 점유 상태**라는 것뿐.
 
 ## Output schema details
 

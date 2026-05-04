@@ -61,6 +61,17 @@ function spawnSshTunnel() {
 
 // ─── Container lifecycle ──────────────────────────────────────────────
 async function startContainer() {
+  // Warm reuse: if container is already running and /health is OK, skip the cold start.
+  const psR = ssh(`docker ps --filter name=^${CONTAINER_NAME}$ --format "{{.Status}}"`);
+  if (psR.stdout.trim().startsWith("Up ")) {
+    const h = ssh(`curl -fsS http://localhost:${VLLM_PORT}/health -m 3 -o /dev/null && echo OK || echo NO`);
+    if (h.stdout.includes("OK")) {
+      console.error(`→ Reusing healthy container ${CONTAINER_NAME} (warm — model already loaded)`);
+      return "reused";
+    }
+    console.error(`→ Container ${CONTAINER_NAME} exists but /health failed — restarting`);
+  }
+
   console.error("→ Cleaning prior containers (any taking port 8000)…");
   // Stop the named one + any other vLLM tests we've left around
   ssh(`docker rm -f ${CONTAINER_NAME} vllm-gemma4 vllm-test 2>/dev/null; true`);
@@ -93,6 +104,7 @@ async function startContainer() {
   const r = ssh(startCmd);
   if (r.code !== 0) throw new Error(`docker run failed: ${r.stderr || r.stdout}`);
   console.error(`  Container started: ${r.stdout.trim().slice(0, 12)}`);
+  return "started";
 }
 
 async function waitForHealth(timeoutMs = 1_200_000) {
@@ -304,37 +316,47 @@ ${article.body}
 // ─── Main ────────────────────────────────────────────────────────────
 async function main() {
   const urls = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+  const KEEP = process.argv.includes("--keep");
   if (urls.length === 0) {
-    console.error("Usage: node scripts/extract-from-naver-url.mjs <naver-url> [naver-url2] ...");
+    console.error("Usage: node scripts/extract-from-naver-url.mjs <naver-url> [naver-url2] ... [--keep]");
     console.error("");
     console.error("  Reads each Naver news URL, extracts structured case info via Gemma 4 31B,");
-    console.error("  prints final JSON to stdout. Container is removed at end (GPU memory freed).");
+    console.error("  prints final JSON to stdout.");
     console.error("");
-    console.error("  Env: HF_TOKEN — optional, raises HF download rate limits");
+    console.error("Options:");
+    console.error("  --keep    실행 후 컨테이너 유지 — 다음 호출 시 warm reuse (모델 재로드 없음).");
+    console.error("            기본은 실행 후 컨테이너 제거 + GPU 메모리 회수.");
+    console.error("");
+    console.error("Env:");
+    console.error("  HF_TOKEN  optional, raises HuggingFace download rate limits");
     process.exit(1);
   }
 
   let tunnel = null;
-  let containerStarted = false;
+  let containerOwned = false; // true if we started fresh (vs reused existing)
 
   const cleanup = async () => {
     if (tunnel) {
       try { tunnel.kill("SIGTERM"); } catch {}
       tunnel = null;
     }
-    if (containerStarted) {
-      await stopContainer();
-      containerStarted = false;
+    if (KEEP) {
+      console.error(`→ --keep: 컨테이너 ${CONTAINER_NAME} 유지 (다음 호출 시 warm reuse)`);
+      return;
     }
+    // Default: stop container regardless of whether we started or reused it.
+    // The last call in a "warm reuse" chain — without --keep — naturally tears down.
+    await stopContainer();
+    containerOwned = false;
   };
 
   process.on("SIGINT", async () => { console.error("\n[SIGINT] cleanup…"); await cleanup(); process.exit(130); });
   process.on("SIGTERM", async () => { await cleanup(); process.exit(143); });
 
   try {
-    await startContainer();
-    containerStarted = true;
-    await waitForHealth();
+    const state = await startContainer();
+    containerOwned = state === "started";
+    if (state === "started") await waitForHealth();
 
     console.error("→ Opening SSH tunnel localhost:8000 → remote:8000…");
     tunnel = spawnSshTunnel();

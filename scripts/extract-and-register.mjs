@@ -72,12 +72,21 @@ function findJudgeId(judges, { judgeStr, court, bench }) {
 
 // ─── Args ─────────────────────────────────────────────────────────────
 const urlsIn = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+const KEEP = process.argv.includes("--keep");
 if (urlsIn.length === 0) {
-  console.error("Usage: node scripts/extract-and-register.mjs <naver-url> [naver-url2] ...");
+  console.error("Usage: node scripts/extract-and-register.mjs <naver-url> [naver-url2] ... [--keep]");
   console.error("");
-  console.error("  Extracts via Gemma 4 31B (vLLM on GPU server) and appends to data/articles.json.");
+  console.error("  Extracts via Gemma 4 31B (vLLM on GPU server) and appends to data/articles.json,");
+  console.error("  then auto-links to data/judges.json via data/judgeArticles.json.");
   console.error("  Re-running on the same URL is a no-op (deduped by URL).");
-  console.error("  Env: HF_TOKEN — optional");
+  console.error("");
+  console.error("Options:");
+  console.error("  --keep    실행 후 GPU 컨테이너 유지 — 다음 호출 시 warm reuse (모델 재로드 없음).");
+  console.error("            기본은 실행 후 컨테이너 제거 + GPU 메모리 회수.");
+  console.error("            여러 번에 나눠 추가할 땐 마지막 호출만 --keep 빼면 자연스럽게 정리됨.");
+  console.error("");
+  console.error("Env:");
+  console.error("  HF_TOKEN  optional, raises HuggingFace download rate limits");
   process.exit(1);
 }
 
@@ -109,7 +118,8 @@ if (urls.length === 0) {
 console.error(`\n→ Extracting ${urls.length} URL${urls.length > 1 ? "s" : ""} …`);
 
 // ─── Run extraction script (container lifecycle handled there) ────────
-const r = spawnSync("node", [EXTRACT_SCRIPT, ...urls], {
+const extractArgs = [EXTRACT_SCRIPT, ...urls, ...(KEEP ? ["--keep"] : [])];
+const r = spawnSync("node", extractArgs, {
   stdio: ["inherit", "pipe", "inherit"], // stderr → user's terminal for progress
   env: process.env,
   encoding: "utf8",
