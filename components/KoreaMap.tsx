@@ -374,7 +374,9 @@ export default function KoreaMap({
     };
     svg.addEventListener("wheel", handler, { passive: false });
     return () => svg.removeEventListener("wheel", handler);
-  }, []);
+    // svg 는 geo fetch 완료 후에만 렌더되므로 deps 에 geo 를 넣어
+    // mount 시점에 listener 가 등록되도록 한다.
+  }, [geo]);
 
   // Pan via drag
   const handleMouseDown = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -519,15 +521,6 @@ export default function KoreaMap({
             </button>
           );
         })}
-        {selectedRegion && (
-          <button
-            onClick={reset}
-            className="text-[11px] px-2 py-1 ml-1 text-civic-700 hover:underline"
-            aria-label="지역 선택 해제 및 전체 보기"
-          >
-            ✕ 전체 보기
-          </button>
-        )}
       </div>
 
       {/* 유형 필터 토글 — 본원 중심 시작화면, 지법 지원 기본 OFF */}
