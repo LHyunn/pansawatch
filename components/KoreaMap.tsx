@@ -6,6 +6,7 @@ import * as topojson from "topojson-client";
 import { geoMercator, geoPath } from "d3-geo";
 import type { Feature, FeatureCollection, Geometry } from "geojson";
 import type { Court } from "@/lib/types";
+import { getCourtPath } from "@/lib/data";
 
 export interface CourtEnrichment {
   topJudges?: { id: string; name: string; position: string; articleCount: number }[];
@@ -662,7 +663,7 @@ export default function KoreaMap({
                         onClick={(e) => {
                           if (isDragging) return;
                           e.stopPropagation();
-                          router.push(`/courts/${c.id}`);
+                          router.push(getCourtPath(c));
                         }}
                       >
                         <circle
