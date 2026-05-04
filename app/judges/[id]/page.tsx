@@ -120,9 +120,6 @@ export default async function JudgePage({ params }: Props) {
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-3 mb-2">
                 <span className="eyebrow eyebrow-civic">판사 프로필</span>
-                <span className="font-mono text-[10px] tabular-nums text-muted-faint">
-                  임관 {judge.appointmentYear}
-                </span>
               </div>
               <h1 className="font-serif text-3xl sm:text-[2.4rem] font-bold text-navy-900 leading-tight">
                 {judge.name}
@@ -143,9 +140,11 @@ export default async function JudgePage({ params }: Props) {
                 )}{" "}
                 · {judge.courtRegion}
               </p>
-              <p className="mt-4 text-[14.5px] text-foreground leading-relaxed max-w-3xl border-l-2 border-navy-100 pl-3">
-                {judge.careerSummary}
-              </p>
+              {judge.division && (
+                <p className="mt-4 text-[14.5px] text-foreground leading-relaxed max-w-3xl border-l-2 border-navy-100 pl-3">
+                  {judge.division}
+                </p>
+              )}
             </div>
           </div>
 
