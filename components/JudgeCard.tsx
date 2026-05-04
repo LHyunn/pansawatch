@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getJudgePath } from "@/lib/data";
 import type { JudgeWithStats } from "@/lib/types";
 
 interface Props {
@@ -23,7 +24,7 @@ export default function JudgeCard({
   if (variant === "compact") {
     return (
       <Link
-        href={`/judges/${judge.id}`}
+        href={getJudgePath(judge)}
         className="flex items-center gap-3 py-2 px-2 -mx-2 rounded hover:bg-navy-50 transition"
       >
         <div className="grid place-items-center h-9 w-9 rounded-full bg-navy-100 text-navy-700 text-xs font-semibold shrink-0">
@@ -52,7 +53,7 @@ export default function JudgeCard({
 
   return (
     <Link
-      href={`/judges/${judge.id}`}
+      href={getJudgePath(judge)}
       className="block border border-line bg-surface hover:border-navy-700 hover:shadow-sm transition group"
     >
       <div className="flex items-stretch border-b border-line-soft text-[10px] tabular-nums">
@@ -73,7 +74,7 @@ export default function JudgeCard({
           </h3>
           <div className="text-xs text-muted mb-2 truncate">{judge.court}</div>
           {judge.division && (
-            <p className="text-xs text-muted leading-relaxed line-clamp-1 mb-3">
+            <p className="text-xs text-muted leading-relaxed line-clamp-2 mb-3">
               {judge.division}
             </p>
           )}

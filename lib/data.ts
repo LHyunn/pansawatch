@@ -93,8 +93,106 @@ export function getJudge(id: string): Judge | null {
   return judgeById.get(id) ?? null;
 }
 
+// 같은 (court, name) 그룹 내 안정 정렬용 인덱스. id 사전순.
+const judgeNameGroups = (() => {
+  const map = new Map<string, Judge[]>();
+  for (const j of judges) {
+    const key = `${j.court}${j.name}`;
+    const arr = map.get(key) ?? [];
+    arr.push(j);
+    map.set(key, arr);
+  }
+  for (const arr of map.values()) {
+    arr.sort((a, b) => a.id.localeCompare(b.id));
+  }
+  return map;
+})();
+
+/**
+ * 동명이인이 같은 법원에 있을 때만 1, 2 ... 접미. 단일이면 이름만.
+ */
+export function judgeSlug(judge: Judge): string {
+  const key = `${judge.court}${judge.name}`;
+  const group = judgeNameGroups.get(key) ?? [judge];
+  if (group.length === 1) return judge.name;
+  const idx = group.findIndex((j) => j.id === judge.id);
+  return `${judge.name}${idx + 1}`;
+}
+
+/**
+ * /judges/{court}/{slug} 형태의 절대 경로. Link href 에 그대로 사용.
+ * Next.js 가 path segment 인코딩을 처리하므로 raw 한글 그대로 둔다.
+ */
+export function getJudgePath(judge: Judge): string {
+  return `/judges/${encodeURIComponent(judge.court)}/${encodeURIComponent(
+    judgeSlug(judge)
+  )}`;
+}
+
+/**
+ * id 만 알고 있을 때 (검색 결과·관련 판사 칩 등) 사용하는 편의 함수.
+ * 알 수 없는 id 면 빈 hash 를 반환해 navigation 를 차단.
+ */
+export function getJudgePathById(id: string): string {
+  const j = judgeById.get(id);
+  return j ? getJudgePath(j) : "#";
+}
+
+/**
+ * 슬러그(이름 또는 이름+숫자) + 법원명으로 판사 lookup.
+ * - suffix 없는 슬러그: 그룹 내 1명일 때만 매치, 동명이인이면 ambiguous → null
+ * - suffix 있는 슬러그: 정렬 인덱스 기반 정확 매치
+ */
+export function getJudgeBySlug(
+  courtName: string,
+  nameSlug: string
+): Judge | null {
+  const m = nameSlug.match(/^(.+?)(\d+)$/);
+  let baseName: string;
+  let suffixIdx: number | null = null;
+  if (m) {
+    baseName = m[1]!;
+    suffixIdx = parseInt(m[2]!, 10) - 1;
+  } else {
+    baseName = nameSlug;
+  }
+  const group = judgeNameGroups.get(`${courtName}${baseName}`);
+  if (!group || group.length === 0) return null;
+  if (suffixIdx !== null) return group[suffixIdx] ?? null;
+  if (group.length === 1) return group[0]!;
+  return null;
+}
+
 export function getCourt(id: string): Court | null {
   return courtById.get(id) ?? null;
+}
+
+const courtByName = new Map(courts.map((c) => [c.name, c]));
+
+/**
+ * URL slug: 법원 이름의 공백을 하이픈으로 치환.
+ * 예: "수원지방법원 성남지원" → "수원지방법원-성남지원".
+ * 데이터에는 하이픈 포함 이름이 없어 역변환 시 충돌 없음.
+ */
+export function courtSlug(court: Court): string {
+  return court.name.replace(/ /g, "-");
+}
+
+export function getCourtPath(court: Court): string {
+  return `/courts/${encodeURIComponent(courtSlug(court))}`;
+}
+
+export function getCourtPathById(id: string): string {
+  const c = courtById.get(id);
+  return c ? getCourtPath(c) : "#";
+}
+
+/**
+ * URL slug → Court. 하이픈을 공백으로 되돌려 정확 매치.
+ */
+export function getCourtBySlug(slug: string): Court | null {
+  const name = slug.replace(/-/g, " ");
+  return courtByName.get(name) ?? null;
 }
 
 export function getArticle(id: string): Article | null {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { formatDate } from "@/lib/data";
+import { formatDate, getJudgePathById } from "@/lib/data";
 import type { ArticleVoteSummary, ArticleWithJudges } from "@/lib/types";
 
 interface Props {
@@ -64,7 +64,7 @@ export default function ArticleCard({
             {article.judges.slice(0, 3).map((j) => (
               <Link
                 key={j.id}
-                href={`/judges/${j.id}`}
+                href={getJudgePathById(j.id)}
                 className="hover:text-navy-900 underline-offset-2 hover:underline"
               >
                 {j.name} 판사
@@ -141,7 +141,7 @@ export default function ArticleCard({
               {article.judges.slice(0, 4).map((j) => (
                 <Link
                   key={j.id}
-                  href={`/judges/${j.id}`}
+                  href={getJudgePathById(j.id)}
                   className="tag tag-navy hover:bg-navy-100"
                 >
                   {j.name}
