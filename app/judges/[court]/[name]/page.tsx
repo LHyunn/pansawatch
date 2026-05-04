@@ -4,8 +4,10 @@ import JudgeTabs from "@/components/JudgeTabs";
 import JudgeStatSummary from "@/components/JudgeStatSummary";
 import CorrectionRequest from "@/components/CorrectionRequest";
 import {
-  getJudge,
+  getJudgeBySlug,
+  judgeSlug,
   getCourt,
+  getCourtPath,
   getArticlesByJudge,
   getCasesByJudge,
   getJudgesForArticle,
@@ -20,16 +22,27 @@ import {
 } from "@/lib/data";
 
 export function generateStaticParams() {
-  return getAllJudges().map((j) => ({ id: j.id }));
+  return getAllJudges().map((j) => ({
+    court: j.court,
+    name: judgeSlug(j),
+  }));
 }
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ court: string; name: string }>;
+}
+
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
-  const judge = getJudge(id);
+  const { court, name } = await params;
+  const judge = getJudgeBySlug(safeDecode(court), safeDecode(name));
   if (!judge) return { title: "판사를 찾을 수 없음" };
   return {
     title: `${judge.name} ${judge.position}`,
@@ -42,8 +55,8 @@ function initials(name: string) {
 }
 
 export default async function JudgePage({ params }: Props) {
-  const { id } = await params;
-  const judge = getJudge(id);
+  const { court: courtParam, name: nameParam } = await params;
+  const judge = getJudgeBySlug(safeDecode(courtParam), safeDecode(nameParam));
   if (!judge) notFound();
   const court = getCourt(judge.courtId);
   const rawArticles = getArticlesByJudge(judge.id);
@@ -93,7 +106,7 @@ export default async function JudgePage({ params }: Props) {
             {court && (
               <>
                 <Link
-                  href={`/courts/${court.id}`}
+                  href={getCourtPath(court)}
                   className="hover:text-navy-900"
                 >
                   {court.name}
@@ -130,7 +143,7 @@ export default async function JudgePage({ params }: Props) {
               <p className="mt-2 text-sm text-muted">
                 {court ? (
                   <Link
-                    href={`/courts/${court.id}`}
+                    href={getCourtPath(court)}
                     className="hover:text-civic-700 underline-offset-2 hover:underline"
                   >
                     {judge.court}
