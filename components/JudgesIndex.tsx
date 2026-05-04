@@ -6,8 +6,7 @@ import type { JudgeWithStats } from "@/lib/types";
 
 type SortKey =
   | "name"
-  | "appointment_asc"
-  | "appointment_desc"
+  | "court"
   | "agreement_high"
   | "agreement_low";
 
@@ -23,8 +22,7 @@ interface Props {
 
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "name", label: "가나다순" },
-  { value: "appointment_asc", label: "임관 빠른순" },
-  { value: "appointment_desc", label: "임관 늦은순" },
+  { value: "court", label: "법원순" },
   { value: "agreement_high", label: "판결 동의율 평균 높은순" },
   { value: "agreement_low", label: "판결 동의율 평균 낮은순" },
 ];
@@ -45,17 +43,10 @@ export default function JudgesIndex({ judges, positions }: Props) {
       case "name":
         list.sort((a, b) => collator.compare(a.name, b.name));
         break;
-      case "appointment_asc":
+      case "court":
         list.sort(
           (a, b) =>
-            a.appointmentYear - b.appointmentYear ||
-            collator.compare(a.name, b.name)
-        );
-        break;
-      case "appointment_desc":
-        list.sort(
-          (a, b) =>
-            b.appointmentYear - a.appointmentYear ||
+            collator.compare(a.court, b.court) ||
             collator.compare(a.name, b.name)
         );
         break;
