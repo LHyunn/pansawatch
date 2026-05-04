@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import JudgeCard from "@/components/JudgeCard";
 import CorrectionRequest from "@/components/CorrectionRequest";
 import {
-  getCourt,
+  getCourtBySlug,
+  courtSlug,
   getJudgesByCourt,
   getJudgeWithStats,
   getCourtTypeLabel,
@@ -16,16 +17,24 @@ import {
 import ArticleCard from "@/components/ArticleCard";
 
 export function generateStaticParams() {
-  return getAllCourts().map((c) => ({ id: c.id }));
+  return getAllCourts().map((c) => ({ name: courtSlug(c) }));
 }
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ name: string }>;
+}
+
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
-  const court = getCourt(id);
+  const { name } = await params;
+  const court = getCourtBySlug(safeDecode(name));
   if (!court) return { title: "법원을 찾을 수 없음" };
   return {
     title: court.name,
@@ -34,8 +43,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function CourtPage({ params }: Props) {
-  const { id } = await params;
-  const court = getCourt(id);
+  const { name } = await params;
+  const court = getCourtBySlug(safeDecode(name));
   if (!court) notFound();
 
   const judgesBase = getJudgesByCourt(court.id).map(getJudgeWithStats);
@@ -135,7 +144,6 @@ export default async function CourtPage({ params }: Props) {
               </div>
               <div className="px-5 py-5">
                 <div className="aspect-[4/3] bg-surface border border-line-soft grid place-items-center mb-3 relative overflow-hidden">
-                  {/* subtle grid pattern */}
                   <div
                     aria-hidden
                     className="absolute inset-0 opacity-[0.06]"

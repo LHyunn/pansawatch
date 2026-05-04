@@ -6,7 +6,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import judgesData from "@/data/judges.json";
 import courtsData from "@/data/courts.json";
 import casesData from "@/data/cases.json";
-import { formatDate } from "@/lib/data";
+import { formatDate, getJudgePathById, getCourtPath } from "@/lib/data";
 import type { Case, Court, Judge } from "@/lib/types";
 
 const judges = judgesData as Judge[];
@@ -100,17 +100,17 @@ export default function SiteHeader() {
     type Result = { kind: "judge" | "case" | "court"; href: string; id: string };
     const list: Result[] = [];
     for (const j of judgeMatches) {
-      list.push({ kind: "judge", href: `/judges/${j.id}`, id: j.id });
+      list.push({ kind: "judge", href: getJudgePathById(j.id), id: j.id });
     }
     for (const c of caseMatches) {
       list.push({
         kind: "case",
-        href: `/judges/${c.judgeId}#case-${c.id.replace("case-", "")}`,
+        href: `${getJudgePathById(c.judgeId)}#case-${c.id.replace("case-", "")}`,
         id: c.id,
       });
     }
     for (const c of courtMatches) {
-      list.push({ kind: "court", href: `/courts/${c.id}`, id: c.id });
+      list.push({ kind: "court", href: getCourtPath(c), id: c.id });
     }
     return list;
   }, [judgeMatches, caseMatches, courtMatches]);
@@ -256,7 +256,7 @@ export default function SiteHeader() {
                             id={`header-result-${flatIdx}`}
                             role="option"
                             aria-selected={isActive}
-                            href={`/judges/${j.id}`}
+                            href={getJudgePathById(j.id)}
                             onClick={() => {
                               setOpen(false);
                               setQuery("");
@@ -293,7 +293,7 @@ export default function SiteHeader() {
                             id={`header-result-${flatIdx}`}
                             role="option"
                             aria-selected={isActive}
-                            href={`/judges/${c.judgeId}#case-${caseNo}`}
+                            href={`${getJudgePathById(c.judgeId)}#case-${caseNo}`}
                             onClick={() => {
                               setOpen(false);
                               setQuery("");
@@ -333,7 +333,7 @@ export default function SiteHeader() {
                             id={`header-result-${flatIdx}`}
                             role="option"
                             aria-selected={isActive}
-                            href={`/courts/${c.id}`}
+                            href={getCourtPath(c)}
                             onClick={() => {
                               setOpen(false);
                               setQuery("");
@@ -452,7 +452,7 @@ export default function SiteHeader() {
               {judgeMatches.map((j) => (
                 <Link
                   key={j.id}
-                  href={`/judges/${j.id}`}
+                  href={getJudgePathById(j.id)}
                   onClick={() => {
                     setMobileNav(false);
                     setQuery("");
@@ -471,7 +471,7 @@ export default function SiteHeader() {
                 return (
                   <Link
                     key={c.id}
-                    href={`/judges/${c.judgeId}#case-${caseNo}`}
+                    href={`${getJudgePathById(c.judgeId)}#case-${caseNo}`}
                     onClick={() => {
                       setMobileNav(false);
                       setQuery("");
@@ -490,7 +490,7 @@ export default function SiteHeader() {
               {courtMatches.map((c) => (
                 <Link
                   key={c.id}
-                  href={`/courts/${c.id}`}
+                  href={getCourtPath(c)}
                   onClick={() => {
                     setMobileNav(false);
                     setQuery("");

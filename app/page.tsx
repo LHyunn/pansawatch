@@ -11,6 +11,7 @@ import {
   getJudgeWithStats,
   getCasesByJudge,
   getCourtAgreementRate,
+  getCourtPath,
 } from "@/lib/data";
 
 export default function HomePage() {
@@ -102,13 +103,17 @@ export default function HomePage() {
                     </h2>
                   </div>
                   <div className="hidden sm:flex items-center gap-1.5 text-[10px] uppercase tracking-[0.12em] text-muted-faint">
-                    <span className="tag tag-seal">대법원 1</span>
-                    <span className="tag tag-civic">고등 1</span>
+                    <span className="tag tag-seal">
+                      대법원 {courtsByType.supreme ?? 0}
+                    </span>
+                    <span className="tag tag-civic">
+                      고등 {courtsByType.high ?? 0}
+                    </span>
                     <span className="tag tag-navy">
-                      지방·가정·행정{" "}
-                      {(courtsByType.district ?? 0) +
-                        (courtsByType.family ?? 0) +
-                        (courtsByType.administrative ?? 0)}
+                      그 외{" "}
+                      {courts.length -
+                        (courtsByType.supreme ?? 0) -
+                        (courtsByType.high ?? 0)}
                     </span>
                   </div>
                 </div>
@@ -201,7 +206,7 @@ export default function HomePage() {
                 {courts.slice(0, 12).map((c) => (
                   <Link
                     key={c.id}
-                    href={`/courts/${c.id}`}
+                    href={getCourtPath(c)}
                     className="flex items-center justify-between border-b border-r border-line bg-surface p-4 hover:bg-navy-50/50 hover:border-navy-700 transition"
                   >
                     <div>
