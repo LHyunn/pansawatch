@@ -70,8 +70,51 @@ function courtTypeLabel(t: Court["type"]): string {
     district: "지방법원",
     family: "가정법원",
     administrative: "행정법원",
+    rehabilitation: "회생법원",
+    patent: "특허법원",
   }[t];
 }
+
+// 8-bucket 분류 — 가시성 토글의 단위. district 는 본원/지원 분리.
+type CourtBucket =
+  | "supreme"
+  | "high"
+  | "district_main"
+  | "district_branch"
+  | "family"
+  | "administrative"
+  | "rehabilitation"
+  | "patent";
+
+function bucketOf(c: Court): CourtBucket {
+  if (c.type === "district") {
+    return c.name.includes("지원") ? "district_branch" : "district_main";
+  }
+  return c.type as CourtBucket;
+}
+
+const BUCKET_DEFS: { key: CourtBucket; label: string }[] = [
+  { key: "supreme", label: "대법원" },
+  { key: "high", label: "고등" },
+  { key: "district_main", label: "지법 본원" },
+  { key: "district_branch", label: "지법 지원" },
+  { key: "family", label: "가정" },
+  { key: "administrative", label: "행정" },
+  { key: "rehabilitation", label: "회생" },
+  { key: "patent", label: "특허" },
+];
+
+// 기본 가시성 — '본원 중심' 시작화면. 지법 지원만 OFF.
+const DEFAULT_VISIBLE: Record<CourtBucket, boolean> = {
+  supreme: true,
+  high: true,
+  district_main: true,
+  district_branch: false,
+  family: true,
+  administrative: true,
+  rehabilitation: true,
+  patent: true,
+};
 
 export default function KoreaMap({
   courts,
@@ -89,6 +132,9 @@ export default function KoreaMap({
     scale: initialScale,
   });
   const [isDragging, setIsDragging] = useState(false);
+  const [visibleBuckets, setVisibleBuckets] = useState<
+    Record<CourtBucket, boolean>
+  >(DEFAULT_VISIBLE);
   const initialAppliedRef = useRef(false);
   const dragStart = useRef<{
     x: number;
@@ -148,16 +194,89 @@ export default function KoreaMap({
     setTransform(initialTransform);
   }, [projection, initialTransform]);
 
+  // 토글에 따른 bucket 별 카운트 — 라벨 옆 표시
+  const bucketCounts = useMemo(() => {
+    const counts: Record<CourtBucket, number> = {
+      supreme: 0,
+      high: 0,
+      district_main: 0,
+      district_branch: 0,
+      family: 0,
+      administrative: 0,
+      rehabilitation: 0,
+      patent: 0,
+    };
+    for (const c of courts) counts[bucketOf(c)]++;
+    return counts;
+  }, [courts]);
+
   const courtMarkers = useMemo(() => {
     if (!projection) return [];
-    return courts
+    const projected = courts
+      .filter((c) => visibleBuckets[bucketOf(c)])
       .map((c) => {
         const p = projection([c.longitude, c.latitude]);
         if (!p) return null;
         return { ...c, x: p[0], y: p[1] };
       })
       .filter(Boolean) as (Court & { x: number; y: number })[];
-  }, [courts, projection]);
+
+    // 같은 빌딩에 입주한 법원이 좌표를 100% 공유하는 케이스(서울고법·서울중앙·
+    // 회생법원 등) 가 다수. 그룹 내 가장 중요한 항목(supreme>high>그 외)을 중심
+    // 으로, 나머지를 동일 거리의 angular offset 으로 펼친다.
+    const typeOrder: Record<string, number> = {
+      supreme: 0,
+      high: 1,
+      district: 2,
+      family: 3,
+      administrative: 4,
+      rehabilitation: 5,
+      patent: 6,
+    };
+    const groups = new Map<string, typeof projected>();
+    for (const m of projected) {
+      const key = `${m.latitude.toFixed(5)},${m.longitude.toFixed(5)}`;
+      const arr = groups.get(key) ?? [];
+      arr.push(m);
+      groups.set(key, arr);
+    }
+    const offsetRadius = 16;
+    const dispersed: typeof projected = [];
+    for (const group of groups.values()) {
+      if (group.length === 1) {
+        dispersed.push(group[0]!);
+        continue;
+      }
+      const ordered = group.slice().sort((a, b) => {
+        const ao = typeOrder[a.type] ?? 9;
+        const bo = typeOrder[b.type] ?? 9;
+        if (ao !== bo) return ao - bo;
+        return b.judgeCount - a.judgeCount;
+      });
+      const cx = ordered[0]!.x;
+      const cy = ordered[0]!.y;
+      dispersed.push(ordered[0]!);
+      const n = ordered.length - 1;
+      for (let i = 1; i <= n; i++) {
+        const angle = (Math.PI * 2 * (i - 1)) / n - Math.PI / 2;
+        dispersed.push({
+          ...ordered[i]!,
+          x: cx + Math.cos(angle) * offsetRadius,
+          y: cy + Math.sin(angle) * offsetRadius,
+        });
+      }
+    }
+
+    // 그리기 순서: supreme/high 가 항상 위에 오도록 type 우선순위로 정렬.
+    // 같은 우선순위 안에서는 큰 마커가 먼저(아래) → 작은 마커가 위로.
+    dispersed.sort((a, b) => {
+      const pa = a.type === "supreme" ? 2 : a.type === "high" ? 1 : 0;
+      const pb = b.type === "supreme" ? 2 : b.type === "high" ? 1 : 0;
+      if (pa !== pb) return pa - pb;
+      return b.judgeCount - a.judgeCount;
+    });
+    return dispersed;
+  }, [courts, projection, visibleBuckets]);
 
   const regionStats = useMemo(() => {
     const judgeCount = new Map<string, number>();
@@ -327,17 +446,29 @@ export default function KoreaMap({
     transform.tx === initialTransform.tx &&
     transform.ty === initialTransform.ty;
 
-  function radius(judgeCount: number): number {
-    if (judgeCount >= 12) return 14;
-    if (judgeCount >= 6) return 11;
-    if (judgeCount >= 3) return 8;
+  // bucket 별 baseline + judgeCount 보조. 범위를 4~11px 로 좁혀
+  // 본원·지원·고법 사이 시각 차이를 부드럽게.
+  function radius(c: Court): number {
+    const b = bucketOf(c);
+    if (b === "supreme") return 11;
+    if (b === "high") return 9;
+    if (b === "district_branch") {
+      if (c.judgeCount >= 30) return 6;
+      if (c.judgeCount >= 10) return 5;
+      return 4;
+    }
+    // 본원·가정·행정·회생·특허
+    if (c.judgeCount >= 100) return 11;
+    if (c.judgeCount >= 50) return 9;
+    if (c.judgeCount >= 20) return 7;
     return 6;
   }
 
-  function markerColor(c: Court, hover: boolean): string {
+  function markerFill(c: Court, hover: boolean): string {
     if (hover) return "var(--color-civic-600)";
     if (c.type === "supreme") return "var(--color-seal-600)";
     if (c.type === "high") return "var(--color-civic-600)";
+    if (bucketOf(c) === "district_branch") return "var(--color-navy-500)";
     return "var(--color-navy-700)";
   }
 
@@ -397,6 +528,49 @@ export default function KoreaMap({
             ✕ 전체 보기
           </button>
         )}
+      </div>
+
+      {/* 유형 필터 토글 — 본원 중심 시작화면, 지법 지원 기본 OFF */}
+      <div className="flex flex-wrap items-center gap-1.5 mb-3">
+        <span className="text-[10px] uppercase tracking-[0.16em] font-semibold text-muted-faint mr-1.5">
+          유형
+        </span>
+        {BUCKET_DEFS.map(({ key, label }) => {
+          const count = bucketCounts[key];
+          const isOn = visibleBuckets[key];
+          if (count === 0) return null;
+          // 색 톤: supreme=seal, high=civic, 그 외=navy
+          const onClass =
+            key === "supreme"
+              ? "bg-seal-600 text-white border-seal-600"
+              : key === "high"
+                ? "bg-civic-600 text-white border-civic-600"
+                : "bg-navy-900 text-white border-navy-900";
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() =>
+                setVisibleBuckets((prev) => ({ ...prev, [key]: !prev[key] }))
+              }
+              aria-pressed={isOn}
+              className={`text-[11px] px-2 py-1 border rounded-sm transition tabular-nums ${
+                isOn
+                  ? onClass
+                  : "border-line text-muted bg-surface hover:border-navy-700 hover:text-navy-900"
+              }`}
+            >
+              {label}
+              <span
+                className={`ml-1 font-mono text-[10px] ${
+                  isOn ? "text-white/75" : "text-muted-faint"
+                }`}
+              >
+                {count}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="relative aspect-[760/880] w-full max-w-[600px] mx-auto">
@@ -467,7 +641,24 @@ export default function KoreaMap({
                 <g data-courts>
                   {courtMarkers.map((c) => {
                     const hovered = hoveredCourt?.id === c.id;
-                    const r = radius(c.judgeCount);
+                    const r = radius(c);
+                    const fill = markerFill(c, hovered);
+                    const isSupreme = c.type === "supreme";
+                    const isHigh = c.type === "high";
+                    const isBranch = bucketOf(c) === "district_branch";
+                    // 외곽 후광 — supreme/high 는 진하게, 지원은 옅게
+                    const haloOpacity = hovered
+                      ? 0.28
+                      : isSupreme
+                        ? 0.2
+                        : isHigh
+                          ? 0.16
+                          : isBranch
+                            ? 0.04
+                            : 0.08;
+                    const strokeWidth =
+                      (isSupreme ? 2.4 : isHigh ? 2.2 : isBranch ? 0.8 : 1.5) *
+                      strokeScale;
                     return (
                       <g
                         key={c.id}
@@ -476,7 +667,6 @@ export default function KoreaMap({
                         onMouseEnter={() => setHoveredCourt(c)}
                         onMouseLeave={() => setHoveredCourt(null)}
                         onClick={(e) => {
-                          // ignore click that follows a drag
                           if (isDragging) return;
                           e.stopPropagation();
                           router.push(`/courts/${c.id}`);
@@ -484,20 +674,27 @@ export default function KoreaMap({
                       >
                         <circle
                           r={(r + 3) * strokeScale}
-                          fill={markerColor(c, hovered)}
-                          opacity={hovered ? 0.22 : 0.08}
+                          fill={fill}
+                          opacity={haloOpacity}
                         />
                         <circle
                           r={r * strokeScale}
-                          fill={markerColor(c, hovered)}
-                          stroke="white"
-                          strokeWidth={1.5 * strokeScale}
+                          fill={fill}
+                          stroke={isBranch ? "var(--color-line)" : "white"}
+                          strokeWidth={strokeWidth}
                         />
-                        {c.type === "supreme" && (
-                          <circle
-                            r={(r - 4) * strokeScale}
-                            fill="white"
-                          />
+                        {/* 대법원: 가운데 표적(흰 고리 + 빨강 점) */}
+                        {isSupreme && (
+                          <>
+                            <circle
+                              r={(r - 4) * strokeScale}
+                              fill="white"
+                            />
+                            <circle
+                              r={(r - 7) * strokeScale}
+                              fill={fill}
+                            />
+                          </>
                         )}
                       </g>
                     );

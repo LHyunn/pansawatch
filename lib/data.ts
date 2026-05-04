@@ -33,16 +33,24 @@ const articleVotes = articleVotesData as ArticleVote[];
 
 const judgeById = new Map(judges.map((j) => [j.id, j]));
 const courtById = new Map(courts.map((c) => [c.id, c]));
-const articleById = new Map(articles.map((a) => [a.id, a]));
 const caseById = new Map(cases.map((c) => [c.id, c]));
 
-const articlesByJudge = new Map<string, JudgeArticle[]>();
-const judgesByArticle = new Map<string, JudgeArticle[]>();
-for (const ja of judgeArticles) {
-  if (!articlesByJudge.has(ja.judgeId)) articlesByJudge.set(ja.judgeId, []);
-  articlesByJudge.get(ja.judgeId)!.push(ja);
-  if (!judgesByArticle.has(ja.articleId)) judgesByArticle.set(ja.articleId, []);
-  judgesByArticle.get(ja.articleId)!.push(ja);
+// Volatile maps (articles + judgeArticles) are rebuilt on each access so that
+// JSON file edits picked up by Turbopack's HMR are reflected immediately —
+// the static `articles` / `judgeArticles` references reflect the latest import,
+// but a module-level Map built once at module init would freeze stale data.
+// Cost: a few thousand-element Map rebuilds per request — negligible.
+function db() {
+  const articleById = new Map(articles.map((a) => [a.id, a]));
+  const articlesByJudge = new Map<string, JudgeArticle[]>();
+  const judgesByArticle = new Map<string, JudgeArticle[]>();
+  for (const ja of judgeArticles) {
+    if (!articlesByJudge.has(ja.judgeId)) articlesByJudge.set(ja.judgeId, []);
+    articlesByJudge.get(ja.judgeId)!.push(ja);
+    if (!judgesByArticle.has(ja.articleId)) judgesByArticle.set(ja.articleId, []);
+    judgesByArticle.get(ja.articleId)!.push(ja);
+  }
+  return { articles, judgeArticles, articleById, articlesByJudge, judgesByArticle };
 }
 
 const casesByJudge = new Map<string, Case[]>();
@@ -82,7 +90,7 @@ export function getAllCourts(): Court[] {
 }
 
 export function getAllArticles(): Article[] {
-  return articles;
+  return db().articles;
 }
 
 export function getAllCases(): Case[] {
@@ -98,7 +106,7 @@ export function getCourt(id: string): Court | null {
 }
 
 export function getArticle(id: string): Article | null {
-  return articleById.get(id) ?? null;
+  return db().articleById.get(id) ?? null;
 }
 
 export function getJudgesByCourt(courtId: string): Judge[] {
@@ -106,9 +114,10 @@ export function getJudgesByCourt(courtId: string): Judge[] {
 }
 
 export function getArticlesByJudge(judgeId: string): Article[] {
-  const links = articlesByJudge.get(judgeId) ?? [];
+  const d = db();
+  const links = d.articlesByJudge.get(judgeId) ?? [];
   return links
-    .map((l) => articleById.get(l.articleId))
+    .map((l) => d.articleById.get(l.articleId))
     .filter((a): a is Article => Boolean(a))
     .sort(
       (a, b) =>
@@ -127,7 +136,7 @@ export function getCasesByJudge(judgeId: string): Case[] {
 }
 
 export function getJudgesForArticle(articleId: string): Judge[] {
-  const links = judgesByArticle.get(articleId) ?? [];
+  const links = db().judgesByArticle.get(articleId) ?? [];
   return links
     .map((l) => judgeById.get(l.judgeId))
     .filter((j): j is Judge => Boolean(j));
@@ -136,13 +145,13 @@ export function getJudgesForArticle(articleId: string): Judge[] {
 export function getJudgeWithStats(j: Judge): JudgeWithStats {
   return {
     ...j,
-    articleCount: articlesByJudge.get(j.id)?.length ?? 0,
+    articleCount: db().articlesByJudge.get(j.id)?.length ?? 0,
     caseCount: casesByJudge.get(j.id)?.length ?? 0,
   };
 }
 
 export function getRecentArticles(limit = 12): ArticleWithJudges[] {
-  return articles
+  return db().articles
     .slice()
     .sort(
       (a, b) =>
@@ -168,7 +177,7 @@ export function getArticlesPage(opts: {
   to?: string;
 }): { items: ArticleWithJudges[]; total: number; page: number; pageSize: number } {
   const { page = 1, pageSize = 20, source, region, from, to } = opts;
-  let filtered = articles.slice();
+  let filtered = db().articles.slice();
   if (source) filtered = filtered.filter((a) => a.source === source);
   if (from) filtered = filtered.filter((a) => a.publishedAt >= from);
   if (to) filtered = filtered.filter((a) => a.publishedAt <= to);
@@ -196,7 +205,7 @@ export function getArticlesPage(opts: {
 }
 
 export function getAllSources(): string[] {
-  return Array.from(new Set(articles.map((a) => a.source))).sort();
+  return Array.from(new Set(db().articles.map((a) => a.source))).sort();
 }
 
 export function getAllRegions(): string[] {
@@ -252,6 +261,8 @@ export function getCourtTypeLabel(t: Court["type"]): string {
     district: "지방법원",
     family: "가정법원",
     administrative: "행정법원",
+    rehabilitation: "회생법원",
+    patent: "특허법원",
   };
   return map[t];
 }
@@ -260,7 +271,7 @@ export function getStats() {
   return {
     courts: courts.length,
     judges: judges.length,
-    articles: articles.length,
+    articles: db().articles.length,
     cases: cases.length,
   };
 }
@@ -457,9 +468,10 @@ export function getJudgeMonthlyArticleCounts(
   // build last `months` buckets ending at the most recent article (deterministic)
   // Use the most recent publishedAt across ALL articles as the anchor so the
   // result is stable regardless of "now".
+  const allArticles = db().articles;
   const anchor =
-    articles.length > 0
-      ? articles
+    allArticles.length > 0
+      ? allArticles
           .map((a) => new Date(a.publishedAt).getTime())
           .reduce((a, b) => Math.max(a, b), 0)
       : 0;
