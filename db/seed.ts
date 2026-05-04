@@ -86,8 +86,7 @@ interface JudgeJson {
   court: string;
   courtRegion: string;
   position: string;
-  appointmentYear: number;
-  careerSummary: string;
+  division: string;
   photoUrl: string | null;
   createdAt: string;
   updatedAt: string;
@@ -240,8 +239,7 @@ function mapJudge(j: JudgeJson): Record<string, unknown> {
     court: j.court,
     court_region: j.courtRegion,
     position: j.position,
-    appointment_year: j.appointmentYear,
-    career_summary: j.careerSummary,
+    division: j.division,
     photo_url: j.photoUrl,
     created_at: j.createdAt,
     updated_at: j.updatedAt,

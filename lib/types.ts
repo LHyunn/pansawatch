@@ -23,8 +23,7 @@ export interface Judge {
   court: string;
   courtRegion: string;
   position: string;
-  appointmentYear: number;
-  careerSummary: string;
+  division: string;
   photoUrl: string | null;
   createdAt: string;
   updatedAt: string;

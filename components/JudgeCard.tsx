@@ -62,9 +62,6 @@ export default function JudgeCard({
         <span className="px-2.5 py-1 text-muted uppercase tracking-[0.12em] font-semibold">
           {judge.position}
         </span>
-        <span className="ml-auto px-2.5 py-1 text-muted-faint font-mono">
-          임관 {judge.appointmentYear}
-        </span>
       </div>
       <div className="flex items-start gap-4 p-5">
         <div className="grid place-items-center h-12 w-12 rounded-full bg-navy-100 text-navy-700 text-base font-semibold shrink-0 group-hover:bg-navy-700 group-hover:text-white transition font-serif">
@@ -75,9 +72,11 @@ export default function JudgeCard({
             {judge.name}
           </h3>
           <div className="text-xs text-muted mb-2 truncate">{judge.court}</div>
-          <p className="text-xs text-muted leading-relaxed line-clamp-2 mb-3">
-            {judge.careerSummary}
-          </p>
+          {judge.division && (
+            <p className="text-xs text-muted leading-relaxed line-clamp-1 mb-3">
+              {judge.division}
+            </p>
+          )}
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 pt-2 border-t border-line-soft text-[11px]">
             <span className="text-muted-faint tabular-nums">
               관련 기사{" "}
