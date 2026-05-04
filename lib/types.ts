@@ -3,7 +3,9 @@ export type CourtType =
   | "high"
   | "district"
   | "family"
-  | "administrative";
+  | "administrative"
+  | "rehabilitation"
+  | "patent";
 
 export interface Court {
   id: string;
