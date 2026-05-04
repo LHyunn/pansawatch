@@ -5,9 +5,9 @@
     "type": "supreme",
     "region": "서울특별시",
     "address": "서울특별시 서초구 서초대로 219",
-    "latitude": 37.4949,
-    "longitude": 127.0070,
-    "judgeCount": 14
+    "latitude": 37.4925836,
+    "longitude": 127.0051571,
+    "judgeCount": 116
   },
   {
     "id": "court-2",
@@ -15,168 +15,818 @@
     "type": "high",
     "region": "서울특별시",
     "address": "서울특별시 서초구 서초중앙로 157",
-    "latitude": 37.4942,
-    "longitude": 127.0078,
-    "judgeCount": 6
+    "latitude": 37.4938649,
+    "longitude": 127.0136354,
+    "judgeCount": 186
   },
   {
     "id": "court-3",
-    "name": "서울중앙지방법원",
-    "type": "district",
-    "region": "서울특별시",
-    "address": "서울특별시 서초구 서초중앙로 157",
-    "latitude": 37.4937,
-    "longitude": 127.0076,
-    "judgeCount": 8
+    "name": "수원고등법원",
+    "type": "high",
+    "region": "경기도",
+    "address": "경기도 수원시 영통구 법조로 105 (하동)",
+    "latitude": 37.2905603,
+    "longitude": 127.069661,
+    "judgeCount": 45
   },
   {
     "id": "court-4",
-    "name": "서울동부지방법원",
-    "type": "district",
-    "region": "서울특별시",
-    "address": "서울특별시 송파구 법원로 101",
-    "latitude": 37.4789,
-    "longitude": 127.1187,
-    "judgeCount": 3
+    "name": "대전고등법원",
+    "type": "high",
+    "region": "대전광역시",
+    "address": "대전광역시 서구 둔산중로 78번길 45(둔산동)",
+    "latitude": 36.3511496,
+    "longitude": 127.3867368,
+    "judgeCount": 29
   },
   {
     "id": "court-5",
-    "name": "서울남부지방법원",
-    "type": "district",
-    "region": "서울특별시",
-    "address": "서울특별시 양천구 신월로 386",
-    "latitude": 37.5181,
-    "longitude": 126.8654,
-    "judgeCount": 2
+    "name": "대구고등법원",
+    "type": "high",
+    "region": "대구광역시",
+    "address": "대구광역시 수성구 동대구로 364",
+    "latitude": 35.862274,
+    "longitude": 128.6290078,
+    "judgeCount": 23
   },
   {
     "id": "court-6",
-    "name": "서울북부지방법원",
-    "type": "district",
-    "region": "서울특별시",
-    "address": "서울특별시 도봉구 마들로 749",
-    "latitude": 37.6555,
-    "longitude": 127.0467,
-    "judgeCount": 1
+    "name": "부산고등법원",
+    "type": "high",
+    "region": "부산광역시",
+    "address": "부산광역시 연제구 법원로 31(거제동 1500번지)",
+    "latitude": 35.1765,
+    "longitude": 129.0793,
+    "judgeCount": 39
   },
   {
     "id": "court-7",
-    "name": "서울서부지방법원",
-    "type": "district",
-    "region": "서울특별시",
-    "address": "서울특별시 마포구 마포대로 174",
-    "latitude": 37.5470,
-    "longitude": 126.9485,
-    "judgeCount": 2
+    "name": "광주고등법원",
+    "type": "high",
+    "region": "광주광역시",
+    "address": "광주광역시 동구 준법로 7-12 (지산2동 342-1)",
+    "latitude": 35.1496912,
+    "longitude": 126.9348603,
+    "judgeCount": 29
   },
   {
     "id": "court-8",
-    "name": "서울가정법원",
-    "type": "family",
+    "name": "서울남부지방법원",
+    "type": "district",
     "region": "서울특별시",
-    "address": "서울특별시 양천구 신월로 386",
-    "latitude": 37.5181,
-    "longitude": 126.8654,
-    "judgeCount": 1
+    "address": "서울특별시 양천구 신월로 386(신정동)",
+    "latitude": 37.5210995,
+    "longitude": 126.8456361,
+    "judgeCount": 100
   },
   {
     "id": "court-9",
-    "name": "서울행정법원",
-    "type": "administrative",
+    "name": "서울동부지방법원",
+    "type": "district",
     "region": "서울특별시",
-    "address": "서울특별시 서초구 양재동 270",
-    "latitude": 37.4711,
-    "longitude": 127.0397,
-    "judgeCount": 2
+    "address": "서울특별시 송파구 법원로 101 (문정동)",
+    "latitude": 37.5145,
+    "longitude": 127.1058,
+    "judgeCount": 75
   },
   {
     "id": "court-10",
-    "name": "수원지방법원",
+    "name": "서울북부지방법원",
     "type": "district",
-    "region": "경기도",
-    "address": "경기도 수원시 영통구 법조로 105",
-    "latitude": 37.2884,
-    "longitude": 127.0588,
-    "judgeCount": 2
+    "region": "서울특별시",
+    "address": "서울시 도봉구 마들로 749 (도봉2동 626)",
+    "latitude": 37.6773575,
+    "longitude": 127.047142,
+    "judgeCount": 72
   },
   {
     "id": "court-11",
-    "name": "인천지방법원",
+    "name": "서울서부지방법원",
     "type": "district",
-    "region": "인천광역시",
-    "address": "인천광역시 미추홀구 소성로163번길 17",
-    "latitude": 37.4476,
-    "longitude": 126.6586,
-    "judgeCount": 2
+    "region": "서울특별시",
+    "address": "서울특별시 마포구 마포대로 174 (공덕동)",
+    "latitude": 37.5491733,
+    "longitude": 126.9553496,
+    "judgeCount": 63
   },
   {
     "id": "court-12",
-    "name": "의정부지방법원",
+    "name": "서울중앙지방법원",
     "type": "district",
-    "region": "경기도",
-    "address": "경기도 의정부시 녹양로34번길 23",
-    "latitude": 37.7458,
-    "longitude": 127.0379,
-    "judgeCount": 1
+    "region": "서울특별시",
+    "address": "서울특별시 서초구 서초중앙로 157 (서초동)",
+    "latitude": 37.4938649,
+    "longitude": 127.0136354,
+    "judgeCount": 385
   },
   {
     "id": "court-13",
-    "name": "춘천지방법원",
+    "name": "수원지방법원",
     "type": "district",
-    "region": "강원특별자치도",
-    "address": "강원특별자치도 춘천시 공지로 284",
-    "latitude": 37.8728,
-    "longitude": 127.7461,
-    "judgeCount": 1
+    "region": "경기도",
+    "address": "경기도 수원시 영통구 법조로 105 (하동)",
+    "latitude": 37.2905603,
+    "longitude": 127.069661,
+    "judgeCount": 165
   },
   {
     "id": "court-14",
-    "name": "대전지방법원",
+    "name": "의정부지방법원",
     "type": "district",
-    "region": "대전광역시",
-    "address": "대전광역시 서구 둔산중로78번길 45",
-    "latitude": 36.3556,
-    "longitude": 127.3845,
-    "judgeCount": 1
+    "region": "경기도",
+    "address": "경기도 의정부시 녹양로 34번길 23 (가능동)",
+    "latitude": 37.7560403,
+    "longitude": 127.0325251,
+    "judgeCount": 79
   },
   {
     "id": "court-15",
-    "name": "대구지방법원",
+    "name": "수원지방법원 성남지원",
     "type": "district",
-    "region": "대구광역시",
-    "address": "대구광역시 수성구 동대구로 364",
-    "latitude": 35.8657,
-    "longitude": 128.6105,
-    "judgeCount": 1
+    "region": "경기도",
+    "address": "경기도 성남시 수정구 산성대로 451 (단대동)",
+    "latitude": 37.4616997,
+    "longitude": 127.1677399,
+    "judgeCount": 46
   },
   {
     "id": "court-16",
+    "name": "수원지방법원 안산지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 안산시 단원구 광덕서로 75 (고잔동)",
+    "latitude": 37.3119057,
+    "longitude": 126.8263447,
+    "judgeCount": 41
+  },
+  {
+    "id": "court-17",
+    "name": "수원지방법원 안양지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 안양시 동안구 관평로 212번길 70 (관양동)",
+    "latitude": 37.3891414,
+    "longitude": 126.9623218,
+    "judgeCount": 27
+  },
+  {
+    "id": "court-18",
+    "name": "수원지방법원 여주지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 여주시 현암동 640-10(현암로 21-12)",
+    "latitude": 37.309222,
+    "longitude": 127.6400836,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-19",
+    "name": "수원지방법원 평택지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 평택시 평남로 1036(동삭동 663)",
+    "latitude": 37.0106293,
+    "longitude": 127.0967915,
+    "judgeCount": 25
+  },
+  {
+    "id": "court-20",
+    "name": "의정부지방법원 고양지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 고양시 일산동구 장백로 209",
+    "latitude": 37.6476505,
+    "longitude": 126.7801571,
+    "judgeCount": 40
+  },
+  {
+    "id": "court-21",
+    "name": "의정부지방법원 남양주지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 남양주시 다산중앙로 82번안길 161(다산동)",
+    "latitude": 37.6113669,
+    "longitude": 127.160296,
+    "judgeCount": 26
+  },
+  {
+    "id": "court-22",
+    "name": "인천지방법원 부천지원",
+    "type": "district",
+    "region": "경기도",
+    "address": "경기도 부천시 원미구 상일로 129(상동)",
+    "latitude": 37.4917951,
+    "longitude": 126.7578011,
+    "judgeCount": 32
+  },
+  {
+    "id": "court-23",
+    "name": "인천지방법원",
+    "type": "district",
+    "region": "인천광역시",
+    "address": "인천광역시 미추홀구 소성로 163번길17(학익동)",
+    "latitude": 37.4450403,
+    "longitude": 126.657432,
+    "judgeCount": 140
+  },
+  {
+    "id": "court-24",
+    "name": "춘천지방법원",
+    "type": "district",
+    "region": "강원특별자치도",
+    "address": "강원특별자치도 춘천시 공지로 284 (효자2동)",
+    "latitude": 37.8671643,
+    "longitude": 127.7342681,
+    "judgeCount": 26
+  },
+  {
+    "id": "court-25",
+    "name": "춘천지방법원 강릉지원",
+    "type": "district",
+    "region": "강원특별자치도",
+    "address": "강원특별자치도 강릉시 동해대로 3288-18 (난곡동)",
+    "latitude": 37.78981,
+    "longitude": 128.87634,
+    "judgeCount": 20
+  },
+  {
+    "id": "court-26",
+    "name": "춘천지방법원 속초지원",
+    "type": "district",
+    "region": "강원특별자치도",
+    "address": "강원특별자치도 속초시 법대로 15 (동명동)",
+    "latitude": 38.2129627,
+    "longitude": 128.5923489,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-27",
+    "name": "춘천지방법원 영월지원",
+    "type": "district",
+    "region": "강원특별자치도",
+    "address": "강원특별자치도 영월읍 영월향교1길 53(영흥리)",
+    "latitude": 37.1850312,
+    "longitude": 128.4733174,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-28",
+    "name": "춘천지방법원 원주지원",
+    "type": "district",
+    "region": "강원특별자치도",
+    "address": "강원특별자치도 원주시 시청로 149 (무실동)",
+    "latitude": 37.3331819,
+    "longitude": 127.934567,
+    "judgeCount": 12
+  },
+  {
+    "id": "court-29",
+    "name": "대전지방법원",
+    "type": "district",
+    "region": "대전광역시",
+    "address": "대전광역시 서구 둔산중로 78번길 45 (둔산동)",
+    "latitude": 36.3511496,
+    "longitude": 127.3867368,
+    "judgeCount": 102
+  },
+  {
+    "id": "court-30",
+    "name": "청주지방법원",
+    "type": "district",
+    "region": "충청북도",
+    "address": "충북 청주시 서원구 산남로 62번길 51(산남동 505)",
+    "latitude": 36.6111787,
+    "longitude": 127.467927,
+    "judgeCount": 49
+  },
+  {
+    "id": "court-31",
+    "name": "청주지방법원 영동지원",
+    "type": "district",
+    "region": "충청북도",
+    "address": "충청북도 영동군 영동읍 영동황간로 99 (매천리 306)",
+    "latitude": 36.1670305,
+    "longitude": 127.790417,
+    "judgeCount": 3
+  },
+  {
+    "id": "court-32",
+    "name": "청주지방법원 제천지원",
+    "type": "district",
+    "region": "충청북도",
+    "address": "충청북도 제천시 칠성로 53 (중앙로 2가 16-2)",
+    "latitude": 37.1415902,
+    "longitude": 128.2176397,
+    "judgeCount": 4
+  },
+  {
+    "id": "court-33",
+    "name": "청주지방법원 충주지원",
+    "type": "district",
+    "region": "충청북도",
+    "address": "충북 충주시 계명대로 103 (교현2동 720-2)",
+    "latitude": 36.982365,
+    "longitude": 127.9168786,
+    "judgeCount": 10
+  },
+  {
+    "id": "court-34",
+    "name": "대전지방법원 공주지원",
+    "type": "district",
+    "region": "충청남도",
+    "address": "충청남도 공주시 한적2길 34-15 (금흥동 610-1)",
+    "latitude": 36.4803268,
+    "longitude": 127.1399718,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-35",
+    "name": "대전지방법원 논산지원",
+    "type": "district",
+    "region": "충청남도",
+    "address": "충청남도 논산시 강경읍 계백로 99 (대흥리 46-1)",
+    "latitude": 36.1642374,
+    "longitude": 127.0298475,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-36",
+    "name": "대전지방법원 서산지원",
+    "type": "district",
+    "region": "충청남도",
+    "address": "충청남도 서산시 공림4로 24 (예천동 600)",
+    "latitude": 36.7705606,
+    "longitude": 126.4351898,
+    "judgeCount": 13
+  },
+  {
+    "id": "court-37",
+    "name": "대전지방법원 천안지원",
+    "type": "district",
+    "region": "충청남도",
+    "address": "충청남도 천안시 동남구 청수14로 77 (청당동 476)",
+    "latitude": 36.7857847,
+    "longitude": 127.1549153,
+    "judgeCount": 28
+  },
+  {
+    "id": "court-38",
+    "name": "대전지방법원 홍성지원",
+    "type": "district",
+    "region": "충청남도",
+    "address": "충남 홍성군 홍성읍 법원로 38 (월산리 848)",
+    "latitude": 36.5969032,
+    "longitude": 126.6629617,
+    "judgeCount": 11
+  },
+  {
+    "id": "court-39",
+    "name": "대구지방법원",
+    "type": "district",
+    "region": "대구광역시",
+    "address": "대구광역시 수성구 동대구로 364 (범어동 176-1)",
+    "latitude": 35.862274,
+    "longitude": 128.6290078,
+    "judgeCount": 100
+  },
+  {
+    "id": "court-40",
+    "name": "대구지방법원 서부지원",
+    "type": "district",
+    "region": "대구광역시",
+    "address": "대구 달서구 장산남로 30 (용산동 230)",
+    "latitude": 35.8521044,
+    "longitude": 128.5278671,
+    "judgeCount": 27
+  },
+  {
+    "id": "court-41",
+    "name": "대구지방법원 경주지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경상북도 경주시 화랑로 89 (동부동 203)",
+    "latitude": 35.8447468,
+    "longitude": 129.2038742,
+    "judgeCount": 7
+  },
+  {
+    "id": "court-42",
+    "name": "대구지방법원 김천지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경상북도 김천시 물망골길 39 (삼락동 1225)",
+    "latitude": 36.1394643,
+    "longitude": 128.083067,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-43",
+    "name": "대구지방법원 상주지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경상북도 상주시 북천로 17-9 (만산동 652-2)",
+    "latitude": 36.4286243,
+    "longitude": 128.1595653,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-44",
+    "name": "대구지방법원 안동지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경북 안동시 강남로 304 (정하동 235-1)",
+    "latitude": 36.5529291,
+    "longitude": 128.7281445,
+    "judgeCount": 8
+  },
+  {
+    "id": "court-45",
+    "name": "대구지방법원 영덕지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경상북도 영덕군 영덕읍 경동로 8337 (화개리 226-1)",
+    "latitude": 36.4327989,
+    "longitude": 129.3562955,
+    "judgeCount": 3
+  },
+  {
+    "id": "court-46",
+    "name": "대구지방법원 의성지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경상북도 의성군 의성읍 군청길 67 (중리리 748-7)",
+    "latitude": 36.3530371,
+    "longitude": 128.6954557,
+    "judgeCount": 3
+  },
+  {
+    "id": "court-47",
+    "name": "대구지방법원 포항지원",
+    "type": "district",
+    "region": "경상북도",
+    "address": "경상북도 포항시 북구 법원로 181 (양덕동 768)",
+    "latitude": 36.0434851,
+    "longitude": 129.3686129,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-48",
     "name": "부산지방법원",
     "type": "district",
     "region": "부산광역시",
     "address": "부산광역시 연제구 법원로 31",
-    "latitude": 35.1924,
-    "longitude": 129.0741,
-    "judgeCount": 1
+    "latitude": 35.1765,
+    "longitude": 129.0793,
+    "judgeCount": 95
   },
   {
-    "id": "court-17",
+    "id": "court-49",
+    "name": "부산지방법원 동부지원",
+    "type": "district",
+    "region": "부산광역시",
+    "address": "부산 해운대구 재반로 112번길 20번(재송동1133)",
+    "latitude": 35.1843578,
+    "longitude": 129.1277407,
+    "judgeCount": 32
+  },
+  {
+    "id": "court-50",
+    "name": "부산지방법원 서부지원",
+    "type": "district",
+    "region": "부산광역시",
+    "address": "부산광역시 강서구 명지국제7로 77 (명지동)",
+    "latitude": 35.0973347,
+    "longitude": 128.9098457,
+    "judgeCount": 26
+  },
+  {
+    "id": "court-51",
+    "name": "울산지방법원",
+    "type": "district",
+    "region": "울산광역시",
+    "address": "울산시 남구 법대로 55",
+    "latitude": 35.5361549,
+    "longitude": 129.287833,
+    "judgeCount": 58
+  },
+  {
+    "id": "court-52",
+    "name": "창원지방법원",
+    "type": "district",
+    "region": "경상남도",
+    "address": "경상남도 창원시 성산구 창이대로 681(사파동)",
+    "latitude": 35.2044139,
+    "longitude": 128.706491,
+    "judgeCount": 83
+  },
+  {
+    "id": "court-53",
+    "name": "창원지방법원 거창지원",
+    "type": "district",
+    "region": "경상남도",
+    "address": "경남 거창군 거창읍 죽전1길 31",
+    "latitude": 35.6919096,
+    "longitude": 127.9087267,
+    "judgeCount": 4
+  },
+  {
+    "id": "court-54",
+    "name": "창원지방법원 마산지원",
+    "type": "district",
+    "region": "경상남도",
+    "address": "경상남도 창원시 마산합포구 완월동 7길 16",
+    "latitude": 35.227956,
+    "longitude": 128.6818586,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-55",
+    "name": "창원지방법원 밀양지원",
+    "type": "district",
+    "region": "경상남도",
+    "address": "경남 밀양시 밀양대로 1993-20(내이동)",
+    "latitude": 35.5040235,
+    "longitude": 128.7507793,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-56",
+    "name": "창원지방법원 진주지원",
+    "type": "district",
+    "region": "경상남도",
+    "address": "경상남도 진주시 진양호로 303",
+    "latitude": 35.1812519,
+    "longitude": 128.0647145,
+    "judgeCount": 17
+  },
+  {
+    "id": "court-57",
+    "name": "창원지방법원 통영지원",
+    "type": "district",
+    "region": "경상남도",
+    "address": "경남 통영시 용남면 동달안길 67",
+    "latitude": 34.854254,
+    "longitude": 128.433205,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-58",
     "name": "광주지방법원",
     "type": "district",
     "region": "광주광역시",
-    "address": "광주광역시 동구 준법로 7-12",
-    "latitude": 35.1467,
-    "longitude": 126.9226,
-    "judgeCount": 1
+    "address": "광주광역시 동구 준법로 7-12(지산동)",
+    "latitude": 35.1496912,
+    "longitude": 126.9348603,
+    "judgeCount": 104
   },
   {
-    "id": "court-18",
+    "id": "court-59",
+    "name": "전주지방법원",
+    "type": "district",
+    "region": "전북특별자치도",
+    "address": "전북특별자치도 전주시 덕진구 가인로 33 (만성동)",
+    "latitude": 35.8423111,
+    "longitude": 127.0732865,
+    "judgeCount": 54
+  },
+  {
+    "id": "court-60",
+    "name": "전주지방법원 군산지원",
+    "type": "district",
+    "region": "전북특별자치도",
+    "address": "전북특별자치도 군산시 법원로 68 (조촌동)",
+    "latitude": 35.9679984,
+    "longitude": 126.7369036,
+    "judgeCount": 16
+  },
+  {
+    "id": "court-61",
+    "name": "전주지방법원 남원지원",
+    "type": "district",
+    "region": "전북특별자치도",
+    "address": "전북특별자치도 남원시 용성로 59 (동충동)",
+    "latitude": 35.4140191,
+    "longitude": 127.3933204,
+    "judgeCount": 3
+  },
+  {
+    "id": "court-62",
+    "name": "전주지방법원 정읍지원",
+    "type": "district",
+    "region": "전북특별자치도",
+    "address": "전북특별자치도 정읍시 수성6로 29 (수성동)",
+    "latitude": 35.5870403,
+    "longitude": 126.8593875,
+    "judgeCount": 8
+  },
+  {
+    "id": "court-63",
+    "name": "광주지방법원 목포지원",
+    "type": "district",
+    "region": "전라남도",
+    "address": "전라남도 목포시 정의로 29 (옥암동)",
+    "latitude": 34.8130064,
+    "longitude": 126.4454172,
+    "judgeCount": 14
+  },
+  {
+    "id": "court-64",
+    "name": "광주지방법원 순천지원",
+    "type": "district",
+    "region": "전라남도",
+    "address": "전남 순천시 왕지로 21 (왕지동)",
+    "latitude": 34.9750048,
+    "longitude": 127.5383158,
+    "judgeCount": 25
+  },
+  {
+    "id": "court-65",
+    "name": "광주지방법원 장흥지원",
+    "type": "district",
+    "region": "전라남도",
+    "address": "전남 장흥군 장흥읍 읍성로 121-1 (남동리)",
+    "latitude": 34.6791194,
+    "longitude": 126.9003849,
+    "judgeCount": 3
+  },
+  {
+    "id": "court-66",
+    "name": "광주지방법원 해남지원",
+    "type": "district",
+    "region": "전라남도",
+    "address": "전남 해남군 해남읍 중앙1로 330 (구교리)",
+    "latitude": 34.5744763,
+    "longitude": 126.5912721,
+    "judgeCount": 5
+  },
+  {
+    "id": "court-67",
     "name": "제주지방법원",
     "type": "district",
     "region": "제주특별자치도",
-    "address": "제주특별자치도 제주시 남광북5길 3",
-    "latitude": 33.4980,
-    "longitude": 126.5311,
-    "judgeCount": 1
+    "address": "제주특별자치도 제주시 남광북5길 3 (이도2동)",
+    "latitude": 33.4931268,
+    "longitude": 126.5360764,
+    "judgeCount": 38
+  },
+  {
+    "id": "court-68",
+    "name": "서울가정법원",
+    "type": "family",
+    "region": "서울특별시",
+    "address": "서울 서초구 강남대로 193(양재동 25-3)",
+    "latitude": 37.51882,
+    "longitude": 127.0186195,
+    "judgeCount": 39
+  },
+  {
+    "id": "court-69",
+    "name": "수원가정법원",
+    "type": "family",
+    "region": "경기도",
+    "address": "경기도 수원시 영통구 매영로 345번길 67 (영통동)",
+    "latitude": 37.2686663,
+    "longitude": 127.0491311,
+    "judgeCount": 15
+  },
+  {
+    "id": "court-70",
+    "name": "인천가정법원",
+    "type": "family",
+    "region": "인천광역시",
+    "address": "인천 미추홀구 경원대로 881(주안동)",
+    "latitude": 37.4543359,
+    "longitude": 126.6896315,
+    "judgeCount": 13
+  },
+  {
+    "id": "court-71",
+    "name": "대전가정법원",
+    "type": "family",
+    "region": "대전광역시",
+    "address": "대전광역시 서구 둔산중로 69 (둔산동 1400)",
+    "latitude": 36.3532995,
+    "longitude": 127.3859535,
+    "judgeCount": 11
+  },
+  {
+    "id": "court-72",
+    "name": "대구가정법원",
+    "type": "family",
+    "region": "대구광역시",
+    "address": "대구광역시 달서구 장산남로 30 (용산동 230)",
+    "latitude": 35.8521044,
+    "longitude": 128.5278671,
+    "judgeCount": 11
+  },
+  {
+    "id": "court-73",
+    "name": "부산가정법원",
+    "type": "family",
+    "region": "부산광역시",
+    "address": "부산광역시 연제구 법원로 31",
+    "latitude": 35.1765,
+    "longitude": 129.0793,
+    "judgeCount": 13
+  },
+  {
+    "id": "court-74",
+    "name": "울산가정법원",
+    "type": "family",
+    "region": "울산광역시",
+    "address": "울산광역시 남구 법대로 55 (옥동 1415)",
+    "latitude": 35.538681,
+    "longitude": 129.2848906,
+    "judgeCount": 6
+  },
+  {
+    "id": "court-75",
+    "name": "광주가정법원",
+    "type": "family",
+    "region": "광주광역시",
+    "address": "광주광역시 서구 상무번영로 85 (치평동 1205-3)",
+    "latitude": 35.1578786,
+    "longitude": 126.8523331,
+    "judgeCount": 9
+  },
+  {
+    "id": "court-76",
+    "name": "서울행정법원",
+    "type": "administrative",
+    "region": "서울특별시",
+    "address": "서울 서초구 강남대로 193 (양재동 25-3)",
+    "latitude": 37.51882,
+    "longitude": 127.0186195,
+    "judgeCount": 51
+  },
+  {
+    "id": "court-77",
+    "name": "서울회생법원",
+    "type": "rehabilitation",
+    "region": "서울특별시",
+    "address": "서울특별시 서초구 서초중앙로 157 (서초동)",
+    "latitude": 37.4938649,
+    "longitude": 127.0136354,
+    "judgeCount": 38
+  },
+  {
+    "id": "court-78",
+    "name": "수원회생법원",
+    "type": "rehabilitation",
+    "region": "경기도",
+    "address": "경기도 수원시 영통구 법조로 105(하동)",
+    "latitude": 37.2905603,
+    "longitude": 127.069661,
+    "judgeCount": 17
+  },
+  {
+    "id": "court-79",
+    "name": "대전회생법원",
+    "type": "rehabilitation",
+    "region": "대전광역시",
+    "address": "대전광역시 서구 둔산중로 78번길 45 (둔산동)",
+    "latitude": 36.3511496,
+    "longitude": 127.3867368,
+    "judgeCount": 9
+  },
+  {
+    "id": "court-80",
+    "name": "대구회생법원",
+    "type": "rehabilitation",
+    "region": "대구광역시",
+    "address": "대구광역시 수성구 동대구로 364 (범어동 176-1)",
+    "latitude": 35.862274,
+    "longitude": 128.6290078,
+    "judgeCount": 9
+  },
+  {
+    "id": "court-81",
+    "name": "부산회생법원",
+    "type": "rehabilitation",
+    "region": "부산광역시",
+    "address": "부산광역시 연제구 법원로 31(거제동)",
+    "latitude": 35.1765,
+    "longitude": 129.0793,
+    "judgeCount": 12
+  },
+  {
+    "id": "court-82",
+    "name": "광주회생법원",
+    "type": "rehabilitation",
+    "region": "광주광역시",
+    "address": "광주광역시 동구 준법로 7-12 (지산동)",
+    "latitude": 35.1496912,
+    "longitude": 126.9348603,
+    "judgeCount": 6
+  },
+  {
+    "id": "court-83",
+    "name": "특허법원",
+    "type": "patent",
+    "region": "대전광역시",
+    "address": "대전광역시 서구 둔산중로 69(둔산동)",
+    "latitude": 36.3532995,
+    "longitude": 127.3859535,
+    "judgeCount": 17
   }
 ]
