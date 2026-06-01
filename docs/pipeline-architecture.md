@@ -1,5 +1,8 @@
 # PansaWatch — 파이프라인 아키텍처
 
+> ⚠️ **현황 안내**: 이 문서는 **계획된 설계(청사진)** 를 설명합니다. 현재 실제 구현은 이 설계와 다르며 일부만 완성된 상태입니다.
+> Supabase·Claude API·GitHub Actions cron 기반 자동화는 아직 도입되지 않았고, 현재 파이프라인은 부분적으로 구축된 자체 호스팅(self-hosted) 구성입니다.
+
 > Phase 3 (데이터 수집·AI 요약·매칭 파이프라인) 청사진.
 > 결정 우선 — "추후 검토" 최소화. 구현 코드는 Phase 3 sprint 에서 작성.
 
@@ -13,7 +16,6 @@ flowchart LR
     NAVER["Naver Search API\n(news)"]
     KAKAO["Kakao Daum Search\n(웹/블로그)"]
     GNEWS["Google News RSS\n(발견용)"]
-    LTIMES["법률신문 sitemap"]
     LAW["국가법령정보 OPEN API\n(판례)"]
     SCOURT["대법원 보도자료\n(인사발령)"]
   end
@@ -50,7 +52,6 @@ flowchart LR
   NAVER --> C_NEWS
   KAKAO --> C_NEWS
   GNEWS --> C_NEWS
-  LTIMES --> C_NEWS
   LAW --> C_CASES
   SCOURT --> C_APPT
 
@@ -73,7 +74,7 @@ flowchart LR
   classDef src fill:#1f3b6e,color:#fff,stroke:#0a1f48;
   classDef proc fill:#f4a261,color:#0a1f48,stroke:#b97122;
   classDef db fill:#264653,color:#fff,stroke:#142a30;
-  class NAVER,KAKAO,GNEWS,LTIMES,LAW,SCOURT src;
+  class NAVER,KAKAO,GNEWS,LAW,SCOURT src;
   class C_NEWS,C_CASES,C_APPT,NORM,NER,AI_NEWS,AI_CASES,MATCH proc;
   class T_ART,T_JART,T_CASES,T_JUDGES db;
 ```
@@ -147,7 +148,6 @@ crawlers/                               # NEW (Phase 3)
   │   │   ├─ naver-news.ts
   │   │   ├─ kakao-daum.ts
   │   │   ├─ google-news-rss.ts
-  │   │   ├─ lawtimes-sitemap.ts
   │   │   ├─ law-go-kr.ts                # 판례 OPEN API
   │   │   └─ scourt-press.ts             # 보도자료
   │   ├─ pipeline/

@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PansaWatch (판사워치)
 
-## Getting Started
+대한민국 법관 공개정보를 모아 시민이 '개별 판결'에 투표하는 시빅테크 플랫폼.
 
-First, run the development server:
+> **핵심 원칙:** 판사 개인이 아니라 **판결(공문서)을 평가한다.** — 이것이 이 프로젝트의 법적 안전성의 핵심입니다.
+
+## 주요 기능
+
+- **판사 / 법원 프로필 + 지도** — 공개된 법관·법원 정보를 한곳에 모아 탐색하고, 지도에서 위치를 확인합니다.
+- **⭐ 판결 단위 시민 투표** — 판사 개인이 아닌 *개별 판결*을 평가 대상으로 삼아 시민이 투표합니다. (프로젝트의 핵심 기능)
+- **판사별 뉴스** — 헤드라인 + 원문 링크 + AI 요약을 함께 제공합니다.
+- **객관적 통계** — 수집된 공개정보를 바탕으로 한 통계 지표를 제공합니다.
+
+## 기술 스택
+
+- **Next.js 16.2.4** (App Router) + **React 19** + **TypeScript** + **Tailwind CSS v4**
+- 데이터는 현재 `data/*.json` 파일을 사용합니다. **(DB 미연동)**
+
+## ⚠️ 현재 상태 (정직하게)
+
+판사 **2,987명**, 법원 **83곳**의 실데이터로 페이지는 정상적으로 빌드/렌더됩니다.
+
+다만 프로젝트의 핵심인 **'판결 단위 투표'는 아직 비작동** 상태입니다.
+
+- 판례·투표 데이터 0건
+- 투표 결과 영속화(저장) 미구현
+
+즉, 현재는 **데모 목적의 UI 골격 단계**입니다.
+
+## 로컬 실행
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+프로덕션 빌드:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ⚠️ Next.js 16 주의
 
-## Learn More
+이 버전은 기존 Next.js와 API/관례가 다를 수 있습니다. 코드를 작성하기 전에 [`AGENTS.md`](./AGENTS.md)를 참조하고, `node_modules/next/dist/docs/` 의 관련 가이드를 확인하세요.
 
-To learn more about Next.js, take a look at the following resources:
+## 포지셔닝
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+비영리 프로젝트입니다. `.org` 도메인을 지향하며, **광고 없음**, **운영자 무편집**(수집된 공개정보를 운영자가 임의로 손대지 않음)을 원칙으로 합니다.

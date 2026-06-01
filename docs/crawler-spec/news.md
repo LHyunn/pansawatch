@@ -70,13 +70,12 @@ const EXCLUDE_PATTERNS = [
 ```
 [1차] Naver Search API (news.json)        ──┐
 [2차] Kakao Daum Search (web.json)         ──┼── 결과 합집합 → dedupe
-[3차] Google News RSS (search?q=...)       ──┤
-[4차] 법률신문 sitemap polling             ──┘
+[3차] Google News RSS (search?q=...)       ──┘
 ```
 
 각 cron 실행:
-1. 1차 호출. 성공 시 결과 사용 + 2~4차는 보강용으로 호출.
-2. 1차 실패 시 2차 → 3차 → 4차 순.
+1. 1차 호출. 성공 시 결과 사용 + 2~3차는 보강용으로 호출.
+2. 1차 실패 시 2차 → 3차 순.
 3. 결과 합치고 dedupe (다음 §4).
 
 ---
@@ -92,11 +91,6 @@ const EXCLUDE_PATTERNS = [
 - 1차 시도: HTML `<a href="...">` 패턴 매칭 (RSS description 안에 publisher URL 이 들어있는 경우).
 - 2차 시도: 리다이렉트를 따라가서 최종 URL (HEAD request, 302 follow).
 - 실패 시 Google URL 그대로 저장 (불완전한 deeplink 이지만 사용자 클릭 가능).
-
-### 법률신문 = sitemap.xml
-파서: 동일 XML 파서. 구조: `urlset.url[]` (loc, lastmod). 각 `loc` 페이지를 fetch 하여 OG 메타데이터(`og:title`, `og:description`, `article:published_time`) 추출.
-- HTML fetch 시 본문은 받되 **추출 후 발췌(첫 500자)만 보관**, 본문 전체 폐기.
-- bingbot crawl-delay 30초 정책 준수 → **자체 30초 간격** 적용.
 
 ---
 
@@ -172,7 +166,6 @@ function tokenize(title: string): string[] {
 | `openapi.naver.com` | 10 | 5 | 25,000 |
 | `dapi.kakao.com` | 5 | 3 | 30,000 |
 | `news.google.com` | 0.5 (2초마다 1회) | 1 | 5,000 |
-| `lawtimes.co.kr` | 0.033 (30초마다 1회) | 1 | 1,000 |
 | 기타 (HEAD 리다이렉트 추적) | 1 | 2 | — |
 
 > 위 수치는 Phase 3 시작값. 첫 가동 후 1주일 간 429 카운트 모니터링하여 조정.
@@ -240,7 +233,7 @@ ON CONFLICT (judge_id, article_id) DO UPDATE
 
 ### 8-C. 출처 정보 보존
 `articles.source` 형식: `<channel>:<publisher>`
-- `channel` ∈ {`naver`, `kakao`, `google`, `lawtimes`}
+- `channel` ∈ {`naver`, `kakao`, `google`}
 - `publisher` = 매체명 (예: 한겨레, 조선일보). Naver 응답의 `link` URL 호스트로 자동 추론.
 
 ---
@@ -273,13 +266,12 @@ ON CONFLICT (judge_id, article_id) DO UPDATE
 1. `crawlers/src/adapters/naver-news.ts`
 2. `crawlers/src/adapters/kakao-daum.ts`
 3. `crawlers/src/adapters/google-news-rss.ts`
-4. `crawlers/src/adapters/lawtimes-sitemap.ts`
-5. `crawlers/src/pipeline/normalize.ts` (URL canonical + HTML decode)
-6. `crawlers/src/pipeline/dedupe.ts` (URL hash + SimHash)
-7. `crawlers/src/lib/rate-limiter.ts`
-8. `crawlers/src/workers/news-crawler.ts` (오케스트레이션)
-9. `.github/workflows/news-crawler.yml` (cron `15 0,6,12,18 * * *`)
-10. dry-run + first prod run + 메트릭 모니터
+4. `crawlers/src/pipeline/normalize.ts` (URL canonical + HTML decode)
+5. `crawlers/src/pipeline/dedupe.ts` (URL hash + SimHash)
+6. `crawlers/src/lib/rate-limiter.ts`
+7. `crawlers/src/workers/news-crawler.ts` (오케스트레이션)
+8. `.github/workflows/news-crawler.yml` (cron `15 0,6,12,18 * * *`)
+9. dry-run + first prod run + 메트릭 모니터
 
 ---
 
@@ -288,5 +280,4 @@ ON CONFLICT (judge_id, article_id) DO UPDATE
 - [Naver Search API](https://developers.naver.com/products/service-api/search/search.md)
 - [Kakao Daum Search](https://developers.kakao.com/docs/latest/en/daum-search/dev-guide)
 - [Google News RSS 검색 (한국)](https://news.google.com/rss/search?q=%EB%B2%95%EC%9B%90&hl=ko&gl=KR&ceid=KR:ko)
-- [법률신문 sitemap.xml](https://www.lawtimes.co.kr/sitemap.xml)
 - [SimHash 알고리즘 (Manku 외)](https://research.google.com/pubs/archive/33026.pdf)

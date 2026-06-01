@@ -2,7 +2,7 @@
 
 > Phase 3 의 `appointments-crawler` 워커. 주 1회. 신규·전보·퇴임을 감지하여 `judges` 테이블 동기화.
 > 메인 출처: 대법원 보도자료 게시판 ([data-sources.md §6](../data-sources.md#6-대법원-보도자료-게시판--인사발령)).
-> 보조 출처: 법률신문 인사 카테고리 (참고용 — 사실 검증).
+> 보조 출처: 리걸타임즈 인사 카테고리 (참고용 — 사실 검증).
 
 ---
 
@@ -26,8 +26,7 @@ const APPOINTMENT_KEYWORDS = [
 제목에 위 키워드 1개 이상 포함된 게시물만 처리 대상.
 
 ### 1-C. 보조 출처 (참고)
-- [법률신문 인사 검색](https://www.lawtimes.co.kr/news?searchSection=2&category=인사) — 사실 교차검증용.
-- [리걸타임즈 인사](https://www.legaltimes.co.kr/) — 동일 목적.
+- [리걸타임즈 인사](https://www.legaltimes.co.kr/) — 사실 교차검증용.
 
 ---
 
@@ -252,6 +251,5 @@ appointments-crawler (주 1회)
 
 - [대법원 보도자료 리스트](https://www.scourt.go.kr/portal/news/NewsListAction.work?gubun=6)
 - [대법원 robots.txt](https://www.scourt.go.kr/robots.txt)
-- [법률신문 인사 카테고리 예시](https://www.lawtimes.co.kr/news/articleView.html?idxno=215510)
 - [matching-logic.md](../matching-logic.md) — 동명이인 처리
 - [ai-pipeline.md](../ai-pipeline.md) — LLM 시스템 프롬프트 정책
