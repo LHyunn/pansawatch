@@ -62,4 +62,5 @@ Thumbs.db
 /data/scourt_pdfs/
 /data/seen-articles.json
 /*.csv
+/*.xlsx
 *.log

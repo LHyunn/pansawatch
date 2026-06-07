@@ -42,28 +42,32 @@ def main():
     wb = load_workbook(XLSX, read_only=True, data_only=True)
     ws = wb["전체"]
 
-    # 인명별 첫 등장 (court, bu, jik) 채택
+    # (인명, 법원) 단위 첫 등장 (court, bu, jik) 채택
+    # — 같은 이름 다른 법원 = 동명이인으로 분리
+    # — 같은 법원 동명이인은 PDF disambiguator(예: '김창현(73년생)')가 이름에 포함되어 자동 분리
     seen = {}
     for r in ws.iter_rows(min_row=2, values_only=True):
         court, bu, jik, name = r
         if not name:
             continue
         name = str(name).strip()
-        if name in seen:
+        court_n = (court or "").strip()
+        key = (name, court_n)
+        if key in seen:
             continue
-        seen[name] = {
-            "court": (court or "").strip(),
+        seen[key] = {
+            "court": court_n,
             "division": (bu or "").strip(),
             "position": (jik or "").strip(),
         }
-    print(f"PDF 추출: 고유 이름 {len(seen)}", file=sys.stderr)
+    print(f"PDF 추출: (이름,법원) 단위 {len(seen)}", file=sys.stderr)
 
     # 4. 새 judges 리스트
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     new_judges = []
     matched_to_court = 0
     preserved_photo = 0
-    for i, (name, info) in enumerate(seen.items(), start=1):
+    for i, ((name, _court_key), info) in enumerate(seen.items(), start=1):
         court_name = info["court"]
         court = court_by_norm.get(norm_name(court_name))
         if court:

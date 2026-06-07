@@ -138,11 +138,15 @@ def clean_person_name(text):
         return ""
     if (")" in s or "]" in s) and "(" not in s and "[" not in s:
         return ""
-    # '이종민(29)', '김창현(신청,' 등 → 한글 이름 부분만 추출
+    # 동명이인 disambiguator: '이종민(29)', '김창현(73년생)' 등 → 그대로 보존
+    if re.match(r"^[가-힣]{2,5}\(\d+(?:년생|기)?\)$", s):
+        if s.split("(")[0] in _NAME_BLACKLIST:
+            return ""
+        return s
+    # '김창현(신청,' 등 부서 텍스트 잔존 → 한글 이름 부분만
     m = re.match(r"^([가-힣]{2,5})(?:\s*[(\[]|$)", s)
     if m:
         s = m.group(1)
-    # 직무명 (당직판사, 담당판사 등) 제외
     if s in _NAME_BLACKLIST:
         return ""
     return s
@@ -265,9 +269,28 @@ def build_records(stream):
             return True
         return is_sublabel
 
+    # 동명이인 disambiguator 행 패턴: 단독으로 '(NN년생)', '(NN년)', '(NN기)' 만 있는 행
+    # → 직전 인명 record에 결합 ('김창현' → '김창현(73년생)')
+    DISAMBIG_RE = re.compile(r"^\((\d{2,4})\s*(?:년생|년|기)\)$")
+
     for bu, jik, name in stream:
         if not (bu or jik or name):
             continue
+
+        # disambiguator 행 (성명 칸에 '(73년생)' 패턴): 직전 인명에 결합
+        # bu가 sublabel이거나 비어있어도 name이 disambig 패턴이면 처리
+        if name and not jik:
+            m = DISAMBIG_RE.match(str(name).strip())
+            if m and records:
+                tail = str(name).strip()
+                last = records[-1]
+                if "(" not in last["성명"]:
+                    last["성명"] = last["성명"] + tail
+                # bu가 있다면 sublabel/새 부별 처리
+                if bu and not maybe_apply_sublabel(bu):
+                    current_bu = bu
+                    current_bu_indices = []
+                continue
 
         # 0. 원외재판부(X) sub-court 전환 (본원 + X재판부로 합성)
         sub = detect_outpost_subcourt(bu)
