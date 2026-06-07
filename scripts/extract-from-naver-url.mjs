@@ -11,8 +11,10 @@
 //   6. Stop & remove container (frees GPU memory)
 //
 // Usage:
+//   GPU_SSH_USER=<user> GPU_SSH_HOST=<host> GPU_SSH_PORT=<port> \
 //   HF_TOKEN=hf_xxx node scripts/extract-from-naver-url.mjs <url1> [url2] ...
-//   node scripts/extract-from-naver-url.mjs https://n.news.naver.com/mnews/article/469/0000928371?sid=102
+//
+// Required env: GPU_SSH_USER / GPU_SSH_HOST / GPU_SSH_PORT — SSH endpoint of the GPU server.
 //
 // Output schema (per article):
 //   { date, court, bench, case_number, judge, charges, demand, sentence, summary1, summary2 }
@@ -20,9 +22,13 @@
 import { spawn, spawnSync } from "node:child_process";
 
 // ─── Config ───────────────────────────────────────────────────────────
-const SSH_USER = "<GPU_SSH_USER>";
-const SSH_HOST = "<GPU_SSH_HOST>";
-const SSH_PORT = "<GPU_SSH_PORT>";
+const SSH_USER = process.env.GPU_SSH_USER;
+const SSH_HOST = process.env.GPU_SSH_HOST;
+const SSH_PORT = process.env.GPU_SSH_PORT;
+if (!SSH_USER || !SSH_HOST || !SSH_PORT) {
+  console.error("Missing env vars: GPU_SSH_USER / GPU_SSH_HOST / GPU_SSH_PORT (SSH endpoint of the GPU server)");
+  process.exit(1);
+}
 
 const CONTAINER_NAME = "pansawatch-extract";
 const VLLM_IMAGE = "vllm/vllm-openai:v0.20.1-cu129";
