@@ -1,0 +1,22 @@
+{
+  "id": "article-39",
+  "url": "https://n.news.naver.com/mnews/article/052/0002347412?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.400Z",
+  "source": {
+    "publisher": "YTN | 네이버",
+    "pub_date": "2026-04-30 07:32:08",
+    "title": "[사건X파일] 女화장실 따라 들어가 \"죽기 전에 한번 해야겠다\" 휴가 군인, 감형 이유가"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "성폭력처벌법 위반(강간 등 살인, 성적 목적 다중 이용 시설 침입), 특수방실침입",
+    "demand": null,
+    "sentence": "징역 13년",
+    "summary1": "항소심 재판부, 휴가 군인 성폭행 시도 징역 13년 선고",
+    "summary2": "항소심 재판부, 여자 화장실에서 여성을 흉기로 찌르고 성폭행을 시도한 휴가 군인에게 징역 13년을 선고함."
+  }
+}

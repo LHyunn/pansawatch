@@ -1,0 +1,22 @@
+{
+  "id": "article-35",
+  "url": "https://n.news.naver.com/mnews/article/607/0000003300?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.398Z",
+  "source": {
+    "publisher": "뉴스타파 | 네이버",
+    "pub_date": "2026-04-30 16:45:14",
+    "title": "[변화] 윤상현 '증인 매수' 인정됐지만 윤상현은 불송치"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "증인도피",
+    "demand": null,
+    "sentence": null,
+    "summary1": "인천경찰청, 윤상현 의원 측근 변호사 증인도피 혐의 송치",
+    "summary2": "인천경찰청, 윤상현 의원의 측근 이 변호사가 증인에게 처벌불원서를 대가로 증언 거부를 요구한 혐의를 인정해 기소 의견 송치."
+  }
+}

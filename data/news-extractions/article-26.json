@@ -1,0 +1,22 @@
+{
+  "id": "article-26",
+  "url": "https://n.news.naver.com/mnews/article/005/0001846610?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.396Z",
+  "source": {
+    "publisher": "국민일보 | 네이버",
+    "pub_date": "2026-05-01 18:50:10",
+    "title": "[단독] ‘술타기’ 어렵게 입증해도 집유… 재범 막으려면 엄벌해야"
+  },
+  "extraction": {
+    "date": "2026-05-01",
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "도로교통법 위반(음주운전)",
+    "demand": null,
+    "sentence": "징역 1년 6개월, 집행유예 2년",
+    "summary1": "법원, 술타기 시도한 음주운전 전력 A씨 집행유예 선고",
+    "summary2": "법원, 부산 북구에서 음주운전 후 술타기를 시도한 전력 있는 A씨에게 징역 1년 6월·집행유예 2년 선고."
+  }
+}

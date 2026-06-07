@@ -1,0 +1,22 @@
+{
+  "id": "article-21",
+  "url": "https://n.news.naver.com/mnews/article/052/0002348180?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.394Z",
+  "source": {
+    "publisher": "YTN | 네이버",
+    "pub_date": "2026-05-03 08:33:45",
+    "title": "시속 50㎞ 도로서 150㎞로 질주...'승객 사망' 택시기사가 받은 선고 [지금이뉴스]"
+  },
+  "extraction": {
+    "date": "2026-05-03",
+    "court": "대전지방법원",
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "교통사고 처리 특례법 위반",
+    "demand": null,
+    "sentence": "금고 1년, 집행유예 2년",
+    "summary1": "대전지법, 과속으로 승객 숨지게 한 택시기사 집행유예 선고",
+    "summary2": "대전지법, 제한속도 103㎞ 초과 과속으로 승객을 숨지게 한 택시기사에게 금고 1년·집행유예 2년 선고."
+  }
+}

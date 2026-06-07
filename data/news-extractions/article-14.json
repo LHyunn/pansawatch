@@ -1,0 +1,22 @@
+{
+  "id": "article-14",
+  "url": "https://n.news.naver.com/mnews/article/052/0002348372?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.392Z",
+  "source": {
+    "publisher": "YTN | 네이버",
+    "pub_date": "2026-05-03 23:20:37",
+    "title": "시신 금목걸이 훔친 검시관...법원 \"절도 인정\""
+  },
+  "extraction": {
+    "date": "2026-05-03",
+    "court": "인천지방법원",
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "절도",
+    "demand": null,
+    "sentence": "벌금 1,000만원",
+    "summary1": "인천지법, 시신 금목걸이 훔친 검시관 벌금 1천만원 선고",
+    "summary2": "인천지법, 변사 현장에서 숨진 남성의 금목걸이를 가로챈 인천경찰청 소속 검시조사관 A씨에게 벌금 1,000만원 선고."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "article-29",
+  "url": "https://n.news.naver.com/mnews/article/016/0002638130?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.396Z",
+  "source": {
+    "publisher": "헤럴드경제 | 네이버",
+    "pub_date": "2026-05-01 07:45:11",
+    "title": "[단독] “그냥 없애버리겠다”스토킹 집행유예 출소 후 협박…검찰, 60대 남성 구속기소[세상&]"
+  },
+  "extraction": {
+    "date": "2026-05-01",
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "협박미수",
+    "demand": null,
+    "sentence": null,
+    "summary1": "60대 남성, 출소 당일 보복 협박미수로 구속 기소",
+    "summary2": "창원지검 거창지청, 스토킹 집행유예 석방 당일 파출소에 전화해 피해자 보복 협박한 60대 남성을 협박미수 혐의로 구속 기소."
+  }
+}

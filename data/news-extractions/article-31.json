@@ -1,0 +1,22 @@
+{
+  "id": "article-31",
+  "url": "https://n.news.naver.com/mnews/article/437/0000489699?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.397Z",
+  "source": {
+    "publisher": "JTBC | 네이버",
+    "pub_date": "2026-04-30 22:19:47",
+    "title": "법원도 경찰도 안 무섭다? 카센터에 갑질한 건물주"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "영업방해",
+    "demand": null,
+    "sentence": "벌금 200만원, 벌금 300만원, 벌금 150만원",
+    "summary1": "건물주, 카센터 영업방해 혐의로 벌금형 3회 선고",
+    "summary2": "법원, 카센터 입구 차단 및 진입 방해 등 영업방해 혐의 건물주에게 벌금 200만원, 300만원, 150만원 각각 선고."
+  }
+}

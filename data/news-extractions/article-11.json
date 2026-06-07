@@ -1,0 +1,22 @@
+{
+  "id": "article-11",
+  "url": "https://n.news.naver.com/mnews/article/056/0012172697?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.391Z",
+  "source": {
+    "publisher": "KBS | 네이버",
+    "pub_date": "2026-04-30 07:42:29",
+    "title": "법정에만 “반성한다”…여전히 우는 산재 유가족"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": null,
+    "demand": null,
+    "sentence": "징역 1년",
+    "summary1": "업체 대표, 산재 사망 사고로 징역 1년 선고",
+    "summary2": "법원, 공사장 벽돌 더미에 맞아 노동자가 숨진 사고의 업체 대표에게 징역 1년을 선고했다."
+  }
+}

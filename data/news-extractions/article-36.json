@@ -1,0 +1,22 @@
+{
+  "id": "article-36",
+  "url": "https://n.news.naver.com/mnews/article/057/0001947106?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.399Z",
+  "source": {
+    "publisher": "MBN | 네이버",
+    "pub_date": "2026-04-30 15:22:13",
+    "title": "'이 정도면 습관'…음주운전 벌금형 받고 또 무면허 음주운전"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": "인천지방법원",
+    "bench": "형사12단독",
+    "case_number": null,
+    "judge": "김현숙 판사",
+    "charges": "교통사고처리특례법상 치상, 도로교통법상 무면허·음주운전",
+    "demand": null,
+    "sentence": "징역 1년, 집행유예 2년",
+    "summary1": "김현숙 판사, 무면허 음주운전 40대 징역형 집행유예 선고",
+    "summary2": "김현숙 인천지법 판사, 벌금형 후 다시 무면허 음주운전으로 사고를 낸 40대 남성에게 징역 1년·집행유예 2년 선고."
+  }
+}

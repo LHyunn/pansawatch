@@ -1,0 +1,22 @@
+{
+  "id": "article-6",
+  "url": "https://n.news.naver.com/mnews/article/052/0002348735?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.389Z",
+  "source": {
+    "publisher": "YTN | 네이버",
+    "pub_date": "2026-05-04 18:42:29",
+    "title": "특검, 김건희 징역 4년 상고...'명태균 여론조사' 무죄 불복"
+  },
+  "extraction": {
+    "date": "2026-05-04",
+    "court": "서울고등법원",
+    "bench": "형사15-2부",
+    "case_number": null,
+    "judge": "신종오 부장판사",
+    "charges": "주가조작 혐의 등",
+    "demand": null,
+    "sentence": "징역 4년, 벌금 5,000만원",
+    "summary1": "신종오 부장판사, 김건희 징역 4년·벌금 5천만원 선고",
+    "summary2": "신종오 서울고법 부장판사, 주가조작 혐의 등으로 기소된 김건희 씨에게 징역 4년과 벌금 5,000만원을 선고했다."
+  }
+}

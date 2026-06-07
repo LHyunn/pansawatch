@@ -1,0 +1,22 @@
+{
+  "id": "article-5",
+  "url": "https://n.news.naver.com/mnews/article/052/0002348741?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.388Z",
+  "source": {
+    "publisher": "YTN | 네이버",
+    "pub_date": "2026-05-04 18:47:21",
+    "title": "'10대 성 착취물 제작' 20대 항소심서 감형"
+  },
+  "extraction": {
+    "date": "2026-05-04",
+    "court": "수원고등법원",
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "10대 성 착취물 제작",
+    "demand": null,
+    "sentence": "징역 6년, 성폭력 치료 프로그램 이수 40시간, 아동·청소년 및 장애인 관련 기관 취업제한 5년",
+    "summary1": "수원고법, 10대 성 착취물 제작 20대 징역 6년 선고",
+    "summary2": "수원고법, 10대 피해자 성 착취물 제작 및 부모 협박 혐의 20대 A씨에게 항소심에서 징역 6년 선고."
+  }
+}

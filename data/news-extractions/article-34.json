@@ -1,0 +1,22 @@
+{
+  "id": "article-34",
+  "url": "https://n.news.naver.com/mnews/article/469/0000928581?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.398Z",
+  "source": {
+    "publisher": "한국일보 | 네이버",
+    "pub_date": "2026-04-30 19:29:11",
+    "title": "광주 카페 돌진·10명 사상 낸 60대에 \"급발진 아냐\" 금고 2년 4개월"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": "광주지방법원",
+    "bench": "형사5단독",
+    "case_number": null,
+    "judge": "지혜선 부장판사",
+    "charges": "교통사고처리특례법상 치사상",
+    "demand": null,
+    "sentence": "금고 2년 4개월",
+    "summary1": "지혜선 부장판사, 카페 돌진 운전자 금고 2년 4개월 선고",
+    "summary2": "지혜선 광주지법 부장판사, 급발진 주장하며 카페로 돌진해 10명을 사상케 한 60대 운전자에게 금고 2년 4개월 선고."
+  }
+}

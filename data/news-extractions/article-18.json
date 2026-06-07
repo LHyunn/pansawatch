@@ -1,0 +1,22 @@
+{
+  "id": "article-18",
+  "url": "https://n.news.naver.com/mnews/article/023/0003974337?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.393Z",
+  "source": {
+    "publisher": "조선일보 | 네이버",
+    "pub_date": "2026-05-03 12:16:12",
+    "title": "상해·살인미수로 기소된 와중에도… 구치소 동료 수감자 폭행"
+  },
+  "extraction": {
+    "date": "2026-05-03",
+    "court": "대구지방법원",
+    "bench": "형사3단독",
+    "case_number": null,
+    "judge": "이현석 판사",
+    "charges": "상해",
+    "demand": null,
+    "sentence": "피고인 A: 징역 10개월, 집행유예 2년 / 피고인 B: 징역 6개월, 집행유예 2년",
+    "summary1": "이현석 판사, 구치소 내 동료 수감자 폭행 20대 집행유예",
+    "summary2": "이현석 대구지법 판사, 구치소에서 동료 수감자를 폭행해 상해를 입힌 20대 2명에게 각각 집행유예를 선고."
+  }
+}

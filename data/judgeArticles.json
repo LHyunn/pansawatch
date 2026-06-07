@@ -4,5 +4,137 @@
     "judgeId": "judge-1818",
     "articleId": "article-1",
     "relevanceScore": 1
+  },
+  {
+    "id": "ja-2",
+    "judgeId": "judge-1746",
+    "articleId": "article-2",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-3",
+    "judgeId": "judge-1401",
+    "articleId": "article-3",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-4",
+    "judgeId": "judge-961",
+    "articleId": "article-4",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-5",
+    "judgeId": "judge-961",
+    "articleId": "article-6",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-6",
+    "judgeId": "judge-587",
+    "articleId": "article-7",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-7",
+    "judgeId": "judge-2636",
+    "articleId": "article-8",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-8",
+    "judgeId": "judge-114",
+    "articleId": "article-10",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-9",
+    "judgeId": "judge-761",
+    "articleId": "article-12",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-10",
+    "judgeId": "judge-2492",
+    "articleId": "article-13",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-11",
+    "judgeId": "judge-1128",
+    "articleId": "article-15",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-12",
+    "judgeId": "judge-761",
+    "articleId": "article-16",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-13",
+    "judgeId": "judge-1454",
+    "articleId": "article-17",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-14",
+    "judgeId": "judge-1402",
+    "articleId": "article-18",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-15",
+    "judgeId": "judge-2334",
+    "articleId": "article-20",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-16",
+    "judgeId": "judge-1045",
+    "articleId": "article-22",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-17",
+    "judgeId": "judge-1402",
+    "articleId": "article-24",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-18",
+    "judgeId": "judge-2457",
+    "articleId": "article-27",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-19",
+    "judgeId": "judge-411",
+    "articleId": "article-32",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-20",
+    "judgeId": "judge-2477",
+    "articleId": "article-33",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-21",
+    "judgeId": "judge-90",
+    "articleId": "article-34",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-22",
+    "judgeId": "judge-2347",
+    "articleId": "article-36",
+    "relevanceScore": 1
+  },
+  {
+    "id": "ja-23",
+    "judgeId": "judge-1398",
+    "articleId": "article-38",
+    "relevanceScore": 1
   }
 ]

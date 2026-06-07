@@ -1,0 +1,22 @@
+{
+  "id": "article-9",
+  "url": "https://n.news.naver.com/mnews/article/081/0003640892?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.391Z",
+  "source": {
+    "publisher": "서울신문 | 네이버",
+    "pub_date": "2026-05-04 15:31:10",
+    "title": "[단독]성착취범이 반성문을 쓰는 이유…가해자 49%는 집행유예[소녀에게]"
+  },
+  "extraction": {
+    "date": "2026-01-06",
+    "court": "서울남부지방법원",
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "아동 간음",
+    "demand": "징역 13년",
+    "sentence": "징역 3년 6개월",
+    "summary1": "서울남부지법, 13세 아동 간음한 30대 징역 3년 6개월 선고",
+    "summary2": "서울남부지법, 13세 아동을 간음한 혐의로 기소된 백모씨에게 검찰 구형 징역 13년보다 낮은 징역 3년 6개월 선고."
+  }
+}

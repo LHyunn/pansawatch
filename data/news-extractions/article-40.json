@@ -1,0 +1,22 @@
+{
+  "id": "article-40",
+  "url": "https://n.news.naver.com/mnews/article/119/0003086120?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.400Z",
+  "source": {
+    "publisher": "데일리안 | 네이버",
+    "pub_date": "2026-04-30 00:02:11",
+    "title": "\"13살에 성매매 강요\" 두물머리 시신 유기男의 끔찍한 과거"
+  },
+  "extraction": {
+    "date": "2026-04-30",
+    "court": "서울북부지방법원",
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "아동청소년성보호법 위반, 특정범죄가중법상 보복 협박, 특수절도 교사, 폭행죄",
+    "demand": null,
+    "sentence": "징역 5년 6개월",
+    "summary1": "13세 아동 성매매 강요 남성 징역 5년 6개월 선고",
+    "summary2": "서울북부지법, 13세 아동에게 성매매를 강요하고 가출 청소년을 폭행한 A씨에게 징역 5년 6개월 선고."
+  }
+}

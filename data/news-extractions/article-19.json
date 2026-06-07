@@ -1,0 +1,22 @@
+{
+  "id": "article-19",
+  "url": "https://n.news.naver.com/mnews/article/659/0000043350?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.394Z",
+  "source": {
+    "publisher": "전주MBC | 네이버",
+    "pub_date": "2026-05-03 11:22:12",
+    "title": "주점서 난동 피우고 경찰관 때린 50대 1심 벌금형"
+  },
+  "extraction": {
+    "date": "2026-05-03",
+    "court": "전주지방법원",
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": "공무집행방해, 업무방해",
+    "demand": null,
+    "sentence": "벌금 600만 원",
+    "summary1": "전주지법, 주점 난동 및 경찰 폭행 50대 벌금형",
+    "summary2": "전주지법, 주점에서 난동을 피우고 출동한 경찰관을 폭행한 50대 A씨에게 벌금 600만 원 선고."
+  }
+}

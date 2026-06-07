@@ -1,0 +1,22 @@
+{
+  "id": "article-28",
+  "url": "https://n.news.naver.com/mnews/article/007/0000008185?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.396Z",
+  "source": {
+    "publisher": "일다 | 네이버",
+    "pub_date": "2026-05-01 09:46:15",
+    "title": "여성의 No를 ‘무시’한 성폭력 가해자와 재판부"
+  },
+  "extraction": {
+    "date": null,
+    "court": null,
+    "bench": null,
+    "case_number": null,
+    "judge": null,
+    "charges": null,
+    "demand": null,
+    "sentence": "무죄",
+    "summary1": "재판부, 75회 거절 의사 녹음된 성폭력 사건 무죄 선고",
+    "summary2": "법원, 피해자가 75회 이상 거부 의사를 밝힌 성폭력 사건의 1심과 2심에서 모두 무죄를 선고함."
+  }
+}

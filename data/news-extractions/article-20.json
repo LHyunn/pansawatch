@@ -1,0 +1,22 @@
+{
+  "id": "article-20",
+  "url": "https://n.news.naver.com/mnews/article/021/0002788863?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.394Z",
+  "source": {
+    "publisher": "문화일보 | 네이버",
+    "pub_date": "2026-05-03 09:44:19",
+    "title": "‘고기 자르지 않고 줬다가 기도막혀 사망’…70대 요양사, 집유 선고"
+  },
+  "extraction": {
+    "date": "2026-05-02",
+    "court": "인천지방법원",
+    "bench": "형사9단독",
+    "case_number": null,
+    "judge": "김기호 판사",
+    "charges": "업무상과실치사",
+    "demand": null,
+    "sentence": "금고 6개월, 집행유예 2년",
+    "summary1": "김기호 판사, 기도 막혀 사망케 한 요양보호사 집유 선고",
+    "summary2": "김기호 인천지법 판사, 고기를 자르지 않고 제공해 입소자를 사망케 한 요양보호사에게 금고 6개월·집행유예 2년 선고."
+  }
+}

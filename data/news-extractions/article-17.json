@@ -1,0 +1,22 @@
+{
+  "id": "article-17",
+  "url": "https://n.news.naver.com/mnews/article/023/0003974348?sid=102",
+  "fetched_at": "2026-05-04T11:15:25.393Z",
+  "source": {
+    "publisher": "조선일보 | 네이버",
+    "pub_date": "2026-05-03 13:24:08",
+    "title": "징역 5년 복역 중 여죄 드러난 마약조직 부총책... 법원, 징역 3년 6개월 추가"
+  },
+  "extraction": {
+    "date": "2026-05-03",
+    "court": "서울중앙지방법원",
+    "bench": "형사34부",
+    "case_number": null,
+    "judge": "한성진 부장판사",
+    "charges": "특정범죄가중처벌법상 향정",
+    "demand": null,
+    "sentence": "징역 3년 6개월",
+    "summary1": "한성진 부장판사, 마약 밀매 조직 부총책 징역 3년 6개월 선고",
+    "summary2": "한성진 서울중앙지법 부장판사, 엑스터시와 합성대마를 밀수입한 마약 밀매 조직 부총책에게 징역 3년 6개월을 추가 선고."
+  }
+}
