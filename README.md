@@ -7,6 +7,17 @@
 > **핵심 원칙: 판사 개인이 아니라 판결(공문서)을 평가한다.**
 > 평가 대상을 사람이 아닌 공적 기록(판결)으로 한정하는 것이 이 프로젝트의 법적 안전성의 핵심입니다. 자세한 설계 논리는 [/about](app/about/page.tsx) 페이지에 있습니다.
 
+## In English
+
+**PansaWatch ("Judge Watch")** is a Korean civic-tech platform for judicial transparency. It aggregates public records on all **2,987 sitting judges** and **83 courts** in South Korea, links court rulings to news coverage with LLM-extracted structured data (court, bench, charges, prosecution demand, sentence), and will let citizens vote on **individual rulings** — public documents — rather than rate judges as people: a deliberately defamation-safe design.
+
+- **Working today** — judge/court profiles, an interactive nationwide court map (d3-geo), a news feed with AI summaries, and a fully automated ingestion pipeline: Naver News search → controversy filtering → vLLM (Gemma) structured extraction → automatic judge linking. 40 real articles ingested so far.
+- **Not yet** — per-ruling voting and accounts are UI-only (no DB/persistence); the app renders from static `data/*.json`.
+- **Principles** — non-profit, no ads, no editorial alteration of collected public records. Only public-record sources (court gazette, published news); no victim or minor PII; AI-generated summaries are always labeled as such.
+- **Inspiration** — Japan's [saibankan-map.jp](https://saibankan-map.jp), replacing its per-judge star-rating model with per-ruling voting for legal safety.
+
+Stack: Next.js 16 (App Router, RSC) · React 19 · TypeScript · Tailwind CSS v4. Pipeline: Node.js + Python, self-hosted vLLM.
+
 ## 주요 기능
 
 - **판사 / 법원 프로필 + 지도** — 법원공보 기반 법관 2,987명, 법원 83곳의 공개정보를 탐색. d3-geo 기반 인터랙티브 전국 법원 지도.
